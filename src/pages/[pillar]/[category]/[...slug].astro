@@ -1,0 +1,52 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { PILLARS } from '../../../config';
+
+export async function getStaticPaths() {
+  const paths = [];
+  
+  Object.keys(PILLARS).forEach((pillarKey) => {
+    const pillar = PILLARS[pillarKey as keyof typeof PILLARS];
+    pillar.categories.forEach((category) => {
+      const catSlug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+      
+      paths.push({
+        params: { 
+          pillar: pillar.slug, 
+          category: catSlug,
+          slug: 'welcome-to-everrank-seo' 
+        },
+        props: { pillarTitle: pillar.title, categoryName: category }
+      });
+    });
+  });
+
+  return paths;
+}
+
+const { pillar, category, slug } = Astro.params;
+const { pillarTitle, categoryName } = Astro.props;
+---
+
+<Layout title={`${categoryName} | ${pillarTitle}`} description={`Deep dive into ${categoryName} within the ${pillarTitle} pillar.`}>
+  <div class="card">
+    <div class="badge">{pillarTitle}</div>
+    <h1>{categoryName}</h1>
+    <p class="path">URL Path: <code>/blog/{pillar}/{category}/{slug}</code></p>
+    <div class="content">
+      <p>This page is dynamically routed to build maximum topical authority for EverRank.</p>
+      <p>ContentIQ will automatically populate this silo with high-value evergreen articles.</p>
+    </div>
+    <a href="/" class="back-link">← Back to Blog Home</a>
+  </div>
+</Layout>
+
+<style>
+  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 3rem; border-radius: 2rem; text-align: center; max-width: 600px; margin: 4rem auto; }
+  h1 { color: #3b82f6; margin-bottom: 1rem; font-size: 2.5rem; font-weight: 800; }
+  p.path { color: rgba(255,255,255,0.3); font-size: 0.8rem; margin-bottom: 2rem; font-family: monospace; }
+  .badge { display: inline-block; padding: 0.4rem 1rem; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-radius: 99px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1.5rem; border: 1px solid rgba(59, 130, 246, 0.2); }
+  .content { color: rgba(255,255,255,0.6); line-height: 1.6; text-align: left; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 1rem; margin-bottom: 2rem; }
+  .back-link { color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: opacity 0.2s; }
+  .back-link:hover { opacity: 1; }
+</style>
