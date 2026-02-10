@@ -2,24 +2,36 @@
 import Layout from '../../../layouts/Layout.astro';
 import { PILLARS } from '../../../config';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const paths = [];
   
-  Object.keys(PILLARS).forEach((pillarKey) => {
+  for (const pillarKey of Object.keys(PILLARS)) {
     const pillar = PILLARS[pillarKey as keyof typeof PILLARS];
-    pillar.categories.forEach((category) => {
+    for (const category of pillar.categories) {
       const catSlug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
       
       paths.push({
         params: { 
           pillar: pillar.slug, 
           category: catSlug,
-          slug: 'welcome-to-everrank-seo' 
+          slug: undefined // Use undefined for the base segment in a rest param [...slug]
         },
         props: { pillarTitle: pillar.title, categoryName: category }
       });
-    });
-  });
+
+      // Also add the welcome post
+      paths.push({
+        params: {
+          pillar: pillar.slug,
+          category: catSlug,
+          slug: 'welcome-to-everrank-seo'
+        },
+        props: { pillarTitle: pillar.title, categoryName: category }
+      });
+    }
+  }
 
   return paths;
 }
