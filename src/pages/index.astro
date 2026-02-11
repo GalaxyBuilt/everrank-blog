@@ -1,6 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { PILLARS } from '../config';
+
+const iconMap: Record<string, string> = {
+    SEO_FUNDAMENTALS: '🎯',
+    AI_INSIGHTS: '🤖',
+    TECH_OPTIMIZATION: '⚡',
+    GROWTH_SYSTEMS: '📈'
+};
 ---
 
 <Layout title="EverRank Blog | AI SEO & Performance Intelligence">
@@ -24,12 +31,6 @@ import { PILLARS } from '../config';
     <div class="pillars-grid">
       {Object.keys(PILLARS).map((key) => {
         const pillar = PILLARS[key as keyof typeof PILLARS];
-        const iconMap: Record<string, string> = {
-            SEO_FUNDAMENTALS: '🎯',
-            AI_INSIGHTS: '🤖',
-            TECH_OPTIMIZATION: '⚡',
-            GROWTH_SYSTEMS: '📈'
-        };
         
         return (
           <div class="pillar-card luxe">
