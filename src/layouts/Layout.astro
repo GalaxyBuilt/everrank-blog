@@ -2,40 +2,87 @@
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
 }
 
-const { title, description = "Institutional-grade SEO, Performance, and AI Content insights." } = Astro.props;
+const { 
+	title, 
+	description = "Institutional-grade SEO, Performance, and AI Content insights.",
+	image = "https://everrank.app/og-image.png"
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="https://everrank.app/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Metadata -->
 		<title>{title} | EverRank Blog</title>
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={`${title} | EverRank Blog`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={`${title} | EverRank Blog`} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+        
+        <!-- Google Fonts matching main site -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+        <script is:inline>
+            // Theme initialization script to prevent flicker
+            (function() {
+                // Must match the key used by next-themes in the main app
+                const theme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', theme);
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            })();
+        </script>
 	</head>
 	<body>
 		<div class="background-effects">
-			<div class="blob top-left"></div>
-			<div class="blob bottom-right"></div>
-			<div class="noise"></div>
+			<div class="blob blob-1"></div>
+			<div class="blob blob-2"></div>
+			<div class="grid-overlay"></div>
 		</div>
 
-		<header>
-			<nav>
-				<a href="/" class="logo">
+		<header class="main-header">
+			<nav class="nav-container">
+				<a href="https://everrank.app" class="logo">
 					<div class="logo-icon">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
 					</div>
-					<span>EverRank Blog</span>
+					<span>EverRank</span>
 				</a>
 				<div class="nav-links">
-					<a href="https://everrank.app">Main App</a>
-          <a href="https://everrank.app/next">Next Scanner</a>
+					<a href="https://everrank.app/next">Next</a>
+					<a href="https://everrank.app/contentiq">ContentIQ</a>
+                    <a href="/blog" class="active">Blog</a>
+					<a href="https://everrank.app/login" class="login-btn">Log In</a>
+                    <a href="https://everrank.app/register" class="cta-btn">Get Started</a>
 				</div>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+                    <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+                    <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
 			</nav>
 		</header>
 
@@ -43,27 +90,78 @@ const { title, description = "Institutional-grade SEO, Performance, and AI Conte
 			<slot />
 		</main>
 
-		<footer>
-			<div class="footer-content">
-				<p>© 2026 GalaxyBuilt. All rights reserved.</p>
-				<div class="footer-links">
-					<a href="https://github.com/GalaxyBuilt/everrank-blog">GitHub</a>
-					<a href="https://everrank.app/next">Performance Auditor</a>
+		<footer class="main-footer">
+			<div class="footer-container">
+				<div class="footer-info">
+					<div class="logo small">
+						<div class="logo-icon xs">
+							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+						</div>
+						<span>EverRank</span>
+					</div>
+					<p>© 2026 Powered by <a href="https://github.com/GalaxyBuilt" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">GalaxyBuilt</a>. AI-Powered SEO Intelligence.</p>
+				</div>
+				<div class="footer-grid">
+					<div class="footer-col">
+						<h4>Platform</h4>
+						<a href="https://everrank.app/next">Next Scanner</a>
+						<a href="https://everrank.app/contentiq">ContentIQ</a>
+						<a href="https://everrank.app/rankings">Rank Tracker</a>
+					</div>
+					<div class="footer-col">
+						<h4>Resources</h4>
+						<a href="/blog">Blog</a>
+						<a href="https://everrank.app/docs">Documentation</a>
+						<a href="https://everrank.app/support">Support</a>
+					</div>
 				</div>
 			</div>
 		</footer>
+
+        <script>
+            const themeBtn = document.getElementById('theme-toggle');
+            themeBtn?.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                if (newTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        </script>
 	</body>
 </html>
 
 <style is:global>
 	:root {
-		--bg-color: #050505;
-		--text-color: #ffffff;
-		--text-dim: rgba(255, 255, 255, 0.4);
-		--accent-blue: #3b82f6;
-		--accent-purple: #8b5cf6;
-		--card-bg: rgba(255, 255, 255, 0.02);
-		--border-color: rgba(255, 255, 255, 0.08);
+		--primary: #667eea;
+		--primary-hover: #5a6fd6;
+		--accent: #764ba2;
+		--gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		
+		/* Light Theme Tokens */
+		--bg: #ffffff;
+		--bg-alt: #f8fafc;
+		--text: #1e293b;
+		--text-muted: #64748b;
+		--border: #e2e8f0;
+		--card-bg: #ffffff;
+		--card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	}
+
+	:root[data-theme="dark"], .dark {
+		--bg: #111111;
+		--bg-alt: #1a1a1a;
+		--text: #f1f5f9;
+		--text-muted: #94a3b8;
+		--border: #2e2e2e;
+		--card-bg: #1a1a1a;
+		--card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 	}
 	
 	* {
@@ -73,13 +171,15 @@ const { title, description = "Institutional-grade SEO, Performance, and AI Conte
 	}
 
 	html, body {
-		background: var(--bg-color);
-		color: var(--text-color);
-		font-family: 'Inter', system-ui, -apple-system, sans-serif;
+		background: var(--bg);
+		color: var(--text);
+		font-family: 'Outfit', 'Inter', system-ui, sans-serif;
 		min-height: 100vh;
 		overflow-x: hidden;
+		transition: background 0.3s ease, color 0.3s ease;
 	}
 
+	/* Background Effects */
 	.background-effects {
 		position: fixed;
 		inset: 0;
@@ -89,122 +189,181 @@ const { title, description = "Institutional-grade SEO, Performance, and AI Conte
 
 	.blob {
 		position: absolute;
-		width: 40vw;
-		height: 40vw;
+		width: 60vw;
+		height: 60vw;
 		filter: blur(120px);
 		border-radius: 50%;
-		opacity: 0.1;
+		opacity: 0.08;
 	}
 
-	.top-left {
-		top: -10%;
-		left: -10%;
-		background: var(--accent-blue);
-	}
+	.blob-1 { top: -20%; left: -10%; background: var(--primary); }
+	.blob-2 { bottom: -20%; right: -10%; background: var(--accent); }
 
-	.bottom-right {
-		bottom: -10%;
-		right: -10%;
-		background: var(--accent-purple);
-	}
-
-	.noise {
+	.grid-overlay {
 		position: absolute;
 		inset: 0;
-		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+		background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+		background-size: 50px 50px;
 		opacity: 0.05;
-		mix-blend-mode: soft-light;
 	}
 
-	header {
-		max-width: 1200px;
+	/* Header Styling matching main site */
+	.main-header {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+		background: rgba(var(--bg), 0.8);
+		backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.nav-container {
+		max-width: 1300px;
 		margin: 0 auto;
-		padding: 2rem;
-	}
-
-	nav {
+		height: 72px;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		padding: 0 24px;
+		justify-content: space-between;
 	}
 
 	.logo {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: 10px;
 		text-decoration: none;
-		color: white;
+		color: var(--text);
 		font-weight: 800;
-		font-size: 1.25rem;
-		letter-spacing: -0.02em;
+		font-size: 1.4rem;
+		background: var(--gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 
 	.logo-icon {
 		width: 32px;
 		height: 32px;
-		background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+		background: var(--gradient);
 		border-radius: 8px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		-webkit-text-fill-color: initial;
 	}
 
 	.nav-links {
 		display: flex;
-		gap: 2rem;
+		align-items: center;
+		gap: 28px;
 	}
 
 	.nav-links a {
-		color: var(--text-dim);
 		text-decoration: none;
-		font-size: 0.9rem;
+		color: var(--text-muted);
+		font-size: 0.95rem;
 		font-weight: 500;
-		transition: color 0.2s ease;
+		transition: all 0.2s ease;
 	}
 
-	.nav-links a:hover {
-		color: white;
+	.nav-links a:hover, .nav-links a.active {
+		color: var(--primary);
 	}
 
+	.cta-btn {
+		background: var(--primary);
+		color: white !important;
+		padding: 10px 20px;
+		border-radius: 8px;
+		font-weight: 600 !important;
+	}
+
+	.cta-btn:hover {
+		background: var(--primary-hover);
+		transform: translateY(-1px);
+	}
+
+    .theme-toggle {
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+        margin-left: 12px;
+    }
+
+    .theme-toggle svg { transition: transform 0.3s ease; }
+    .sun { display: none; }
+    .moon { display: block; }
+
+    [data-theme="dark"] .sun { display: block; }
+    [data-theme="dark"] .moon { display: none; }
+
+	/* Main Content */
 	main {
-		max-width: 1200px;
+		max-width: 1300px;
 		margin: 0 auto;
-		padding: 2rem;
-		min-height: 70vh;
+		padding: 120px 24px 80px;
+		min-height: 80vh;
 	}
 
-	footer {
-		border-top: 1px solid var(--border-color);
-		max-width: 1200px;
-		margin: 4rem auto 0;
-		padding: 3rem 2rem;
+	/* Footer */
+	.main-footer {
+		background: var(--bg-alt);
+		border-top: 1px solid var(--border);
+		padding: 60px 24px;
 	}
 
-	.footer-content {
+	.footer-container {
+		max-width: 1300px;
+		margin: 0 auto;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		color: var(--text-dim);
-		font-size: 0.85rem;
+		gap: 60px;
 	}
 
-	.footer-links {
-		display: flex;
-		gap: 2rem;
+	.footer-info {
+		max-width: 300px;
 	}
 
-	.footer-links a {
-		color: inherit;
+	.footer-info p {
+		margin-top: 16px;
+		color: var(--text-muted);
+		line-height: 1.6;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 80px;
+	}
+
+	.footer-col h4 {
+		margin-bottom: 24px;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.footer-col a {
+		display: block;
 		text-decoration: none;
-		transition: color 0.2s ease;
+		color: var(--text-muted);
+		margin-bottom: 12px;
+		transition: color 0.2s;
 	}
 
-	.footer-links a:hover {
-		color: white;
+	.footer-col a:hover {
+		color: var(--primary);
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 900px) {
 		.nav-links { display: none; }
-		.footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+		.footer-container { flex-direction: column; text-align: center; align-items: center; }
+		.footer-grid { gap: 40px; }
 	}
 </style>

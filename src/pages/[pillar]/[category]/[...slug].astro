@@ -16,12 +16,11 @@ export async function getStaticPaths() {
         params: { 
           pillar: pillar.slug, 
           category: catSlug,
-          slug: undefined // Use undefined for the base segment in a rest param [...slug]
+          slug: undefined 
         },
         props: { pillarTitle: pillar.title, categoryName: category }
       });
 
-      // Also add the welcome post
       paths.push({
         params: {
           pillar: pillar.slug,
@@ -38,27 +37,208 @@ export async function getStaticPaths() {
 
 const { pillar, category, slug } = Astro.params;
 const { pillarTitle, categoryName } = Astro.props;
+
+// Use a dynamic image path if one exists, otherwise fallback to default OG
+const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https://everrank.app/og-image.png`;
 ---
 
-<Layout title={`${categoryName} | ${pillarTitle}`} description={`Deep dive into ${categoryName} within the ${pillarTitle} pillar.`}>
-  <div class="card">
-    <div class="badge">{pillarTitle}</div>
-    <h1>{categoryName}</h1>
-    <p class="path">URL Path: <code>/blog/{pillar}/{category}/{slug}</code></p>
-    <div class="content">
-      <p>This page is dynamically routed to build maximum topical authority for EverRank.</p>
-      <p>ContentIQ will automatically populate this silo with high-value evergreen articles.</p>
-    </div>
-    <a href="/" class="back-link">← Back to Blog Home</a>
+<Layout 
+  title={`${categoryName} | ${pillarTitle}`} 
+  description={`Deep dive into ${categoryName} within the ${pillarTitle} pillar.`}
+  image={postImage}
+>
+  <div class="article-container">
+    <nav class="breadcrumb">
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <a href="#">{pillarTitle}</a>
+        <span>/</span>
+        <span class="curr">{categoryName}</span>
+    </nav>
+
+    <article class="luxe-article">
+        <header class="article-header">
+            <div class="category-badge">{pillarTitle}</div>
+            <h1>{categoryName}</h1>
+            <div class="article-meta">
+                <span>By ContentIQ AI</span>
+                <span class="dot"></span>
+                <span>5 min read</span>
+                <span class="dot"></span>
+                <span>Feb 11, 2026</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            <div class="path-well">
+                <span class="label">Topical Slug:</span>
+                <code>/blog/{pillar}/{category}/{slug || ''}</code>
+            </div>
+            
+            <p class="lead"> This page is a critical node in the EverRank topical authority graph. By clustering deep technical insights under the <strong>{pillarTitle}</strong> silo, we establish institutional-grade dominance.</p>
+
+            <div class="ai-insight-box">
+                <div class="ai-head">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                    <span>ContentIQ AI Strategy</span>
+                </div>
+                <p>Generating high-authority evergreen content for "<strong>{categoryName}</strong>". Our systems are currently analyzing search intent, LSI keywords, and competitor gaps for this specific cluster.</p>
+            </div>
+
+            <h2>Methodology</h2>
+            <p>We approach search performance as an engineering challenge. Content is not just text; it's data that must be structured, interlinked, and optimized for both humans and LLMs (Large Language Models).</p>
+            
+            <ul>
+                <li>Topical clustering via recursive silo mapping.</li>
+                <li>Intent-driven keyword orchestration.</li>
+                <li>Real-time performance auditing via Next Scanner.</li>
+            </ul>
+        </div>
+
+        <footer class="article-footer">
+            <a href="/blog" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
+                Back to Knowledge Base
+            </a>
+        </footer>
+    </article>
   </div>
 </Layout>
 
 <style>
-  .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 3rem; border-radius: 2rem; text-align: center; max-width: 600px; margin: 4rem auto; }
-  h1 { color: #3b82f6; margin-bottom: 1rem; font-size: 2.5rem; font-weight: 800; }
-  p.path { color: rgba(255,255,255,0.3); font-size: 0.8rem; margin-bottom: 2rem; font-family: monospace; }
-  .badge { display: inline-block; padding: 0.4rem 1rem; background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-radius: 99px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1.5rem; border: 1px solid rgba(59, 130, 246, 0.2); }
-  .content { color: rgba(255,255,255,0.6); line-height: 1.6; text-align: left; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 1rem; margin-bottom: 2rem; }
-  .back-link { color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: opacity 0.2s; }
-  .back-link:hover { opacity: 1; }
+  .article-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .curr { color: var(--text); font-weight: 600; }
+
+  .luxe-article {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 60px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .article-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .dot { width: 4px; height: 4px; background: var(--border); border-radius: 50%; }
+
+  .path-well {
+    background: var(--bg-alt);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+  }
+
+  .path-well .label { font-weight: 700; color: var(--text-muted); }
+  code { background: var(--bg); padding: 4px 8px; border-radius: 4px; color: var(--primary); }
+
+  .article-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  .lead { font-size: 1.3rem; margin-bottom: 40px; font-weight: 500; }
+
+  .ai-insight-box {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border: 1px solid var(--primary);
+    padding: 32px;
+    border-radius: 24px;
+    margin: 40px 0;
+  }
+
+  .ai-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  h2 { font-size: 2rem; margin: 60px 0 24px; font-weight: 700; }
+  p { margin-bottom: 24px; }
+
+  ul { margin-bottom: 32px; padding-left: 20px; }
+  li { margin-bottom: 12px; }
+
+  .article-footer {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 700;
+    transition: gap 0.2s;
+  }
+
+  .back-link:hover { gap: 12px; }
+
+  @media (max-width: 768px) {
+    .luxe-article { padding: 40px 24px; }
+    h1 { font-size: 2.2rem; }
+  }
 </style>

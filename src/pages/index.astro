@@ -3,36 +3,287 @@ import Layout from '../layouts/Layout.astro';
 import { PILLARS } from '../config';
 ---
 
-<Layout title="EverRank Blog | AI SEO & Performance">
-  <h1>EverRank Blog</h1>
-  <p class="subtitle">Institutional-grade SEO, Performance, and AI Content insights.</p>
-  
-  <div class="grid">
-    {Object.keys(PILLARS).map((key) => {
-      const pillar = PILLARS[key];
-      return (
-        <div class="pillar-card">
-          <h2>{pillar.title}</h2>
-          <ul>
-            {pillar.categories.slice(0, 5).map((cat) => (
-              <li>{cat}</li>
-            ))}
-            {pillar.categories.length > 5 && <li>+ {pillar.categories.length - 5} more...</li>}
-          </ul>
-        </div>
-      )
-    })}
-  </div>
+<Layout title="EverRank Blog | AI SEO & Performance Intelligence">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">Intelligence Hub</div>
+      <h1>The Future of <span class="gradient-text">Search Performance</span></h1>
+      <p class="hero-subtitle">
+        Actionable insights on AI-driven SEO, Next.js optimization, and content velocity. 
+        Learn how to build authority that compounds.
+      </p>
+    </div>
+  </section>
+
+  <section class="pillars-section">
+    <div class="section-header">
+      <h2>Content Pillars</h2>
+      <p>Explore our deep-dives into vertical-specific growth strategies.</p>
+    </div>
+
+    <div class="pillars-grid">
+      {Object.keys(PILLARS).map((key) => {
+        const pillar = PILLARS[key as keyof typeof PILLARS];
+        const iconMap: Record<string, string> = {
+            SEO_FUNDAMENTALS: '🎯',
+            AI_INSIGHTS: '🤖',
+            TECH_OPTIMIZATION: '⚡',
+            GROWTH_SYSTEMS: '📈'
+        };
+        
+        return (
+          <div class="pillar-card luxe">
+            <div class="card-icon">{iconMap[key] || '📄'}</div>
+            <h3>{pillar.title}</h3>
+            <p class="pillar-desc">Advanced methodology for {pillar.title.toLowerCase()}.</p>
+            
+            <div class="category-tags">
+              {pillar.categories.slice(0, 4).map((cat) => (
+                <span class="tag">{cat}</span>
+              ))}
+              {pillar.categories.length > 4 && <span class="tag plus">+{pillar.categories.length - 4}</span>}
+            </div>
+
+            <a href={`/blog/${pillar.slug}`} class="explore-btn">
+               Explore Pillar
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+          </div>
+        )
+      })}
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="newsletter-card">
+        <h3>Stay Ahead of the Algorithm</h3>
+        <p>Get bi-weekly insights on AI shifts and ranking factors delivered to your inbox.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Enter your work email" />
+            <button type="submit" class="cta-btn">Join 2,400+ SEOs</button>
+        </form>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  h1 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; background: linear-gradient(to right, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  p.subtitle { font-size: 1.25rem; color: rgba(255,255,255,0.5); margin-bottom: 4rem; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-  .pillar-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 2rem; transition: all 0.3s ease; }
-  .pillar-card:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-5px); }
-  h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: #60a5fa; }
-  ul { list-style: none; padding: 0; margin: 0; }
-  li { margin-bottom: 0.75rem; color: rgba(255,255,255,0.4); font-size: 0.9rem; }
-  li:before { content: "→"; margin-right: 0.5rem; color: #3b82f6; }
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 60px 0 100px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--bg-alt);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.03em;
+  }
+
+  .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .section-header p {
+    color: var(--text-muted);
+  }
+
+  /* Pillars Grid */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    margin-bottom: 100px;
+  }
+
+  .pillar-card.luxe {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pillar-card.luxe:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px -10px rgba(102, 126, 234, 0.3);
+  }
+
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 24px;
+    width: 64px;
+    height: 64px;
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .pillar-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .tag {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .tag.plus {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .explore-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: gap 0.2s;
+  }
+
+  .explore-btn:hover {
+    gap: 12px;
+  }
+
+  /* Newsletter Box */
+  .newsletter {
+    margin-top: 40px;
+  }
+
+  .newsletter-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 60px 40px;
+    border-radius: 32px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .newsletter-card h3 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .newsletter-card p {
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  .newsletter-form input:focus {
+    border-color: var(--primary);
+  }
+
+  .cta-btn {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+
+  .cta-btn:hover {
+    background: var(--primary-hover);
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-form { flex-direction: column; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 0; }
+  }
 </style>
