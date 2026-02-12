@@ -6,7 +6,18 @@ const iconMap: Record<string, string> = {
     SEO_FUNDAMENTALS: '🎯',
     AI_INSIGHTS: '🤖',
     TECH_OPTIMIZATION: '⚡',
-    GROWTH_SYSTEMS: '📈'
+    GROWTH_SYSTEMS: '📈',
+    BEST_PRACTICES: '📚',
+    CASE_STUDIES: '🏆'
+};
+
+const imageMap: Record<string, string> = {
+    SEO_FUNDAMENTALS: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
+    AI_INSIGHTS: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+    TECH_OPTIMIZATION: 'https://images.unsplash.com/photo-1551288049-bbbda50a13a9?auto=format&fit=crop&q=80&w=800',
+    GROWTH_SYSTEMS: 'https://images.unsplash.com/photo-1551288049-bbbda50a13a9?auto=format&fit=crop&q=80&w=800',
+    BEST_PRACTICES: '/blog/blog_best_practices_hero.png',
+    CASE_STUDIES: '/blog/blog_case_studies_hero.png'
 };
 ---
 
@@ -34,21 +45,25 @@ const iconMap: Record<string, string> = {
         
         return (
           <div class="pillar-card luxe">
-            <div class="card-icon">{iconMap[key] || '📄'}</div>
-            <h3>{pillar.title}</h3>
-            <p class="pillar-desc">Advanced methodology for {pillar.title.toLowerCase()}.</p>
-            
-            <div class="category-tags">
-              {pillar.categories.slice(0, 4).map((cat) => (
-                <span class="tag">{cat}</span>
-              ))}
-              {pillar.categories.length > 4 && <span class="tag plus">+{pillar.categories.length - 4}</span>}
-            </div>
+            <div class="card-bg" style={`background-image: url(${imageMap[key]})`}></div>
+            <div class="card-overlay"></div>
+            <div class="card-content">
+              <div class="card-icon">{iconMap[key] || '📄'}</div>
+              <h3>{pillar.title}</h3>
+              <p class="pillar-desc">Advanced methodology for {pillar.title.toLowerCase()}.</p>
+              
+              <div class="category-tags">
+                {pillar.categories.slice(0, 4).map((cat: string) => (
+                  <span class="tag">{cat}</span>
+                ))}
+                {pillar.categories.length > 4 && <span class="tag plus">+{pillar.categories.length - 4}</span>}
+              </div>
 
-            <a href={`/blog/${pillar.slug}`} class="explore-btn">
-               Explore Pillar
-               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-            </a>
+              <a href={`/blog/${pillar.slug}`} class="explore-btn">
+                Explore Pillar
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+              </a>
+            </div>
           </div>
         )
       })}
@@ -146,6 +161,36 @@ const iconMap: Record<string, string> = {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    min-height: 400px;
+    z-index: 1;
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+    z-index: -2;
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0.4) 0%, rgba(17, 17, 17, 0.9) 100%);
+    z-index: -1;
+  }
+
+  .pillar-card.luxe:hover .card-bg {
+    transform: scale(1.1);
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    z-index: 2;
   }
 
   .pillar-card.luxe:hover {

@@ -73,8 +73,18 @@ const {
 					<span>EverRank</span>
 				</a>
 				<div class="nav-links">
-					<a href="https://everrank.app/next">Next</a>
-					<a href="https://everrank.app/contentiq">ContentIQ</a>
+					<div class="dropdown">
+						<button class="dropdown-trigger">
+							Products <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+						</button>
+						<div class="dropdown-menu">
+							<a href="https://everrank.app/nova">Nova</a>
+							<a href="https://everrank.app/contentiq">ContentIQ</a>
+							<a href="https://everrank.app/next">Next Scanner</a>
+							<a href="https://everrank.app/prompts">AI Prompts</a>
+							<a href="/blog/case-studies">Case Studies</a>
+						</div>
+					</div>
                     <a href="/blog" class="active">Blog</a>
 					<a href="https://everrank.app/login" class="login-btn">Log In</a>
                     <a href="https://everrank.app/register" class="cta-btn">Get Started</a>
@@ -91,16 +101,6 @@ const {
 		</main>
 
 		<footer class="main-footer">
-			<div class="footer-container">
-				<div class="footer-info">
-					<div class="logo small">
-						<div class="logo-icon xs">
-							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-						</div>
-						<span>EverRank</span>
-					</div>
-					<p>© 2026 Powered by <a href="https://github.com/GalaxyBuilt" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">GalaxyBuilt</a>. AI-Powered SEO Intelligence.</p>
-				</div>
 				<div class="footer-grid">
 					<div class="footer-col">
 						<h4>Platform</h4>
@@ -115,6 +115,9 @@ const {
 						<a href="https://everrank.app/support">Support</a>
 					</div>
 				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>© 2026 Powered by <a href="https://github.com/GalaxyBuilt" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">GalaxyBuilt</a>. AI-Powered SEO Intelligence.</p>
 			</div>
 		</footer>
 
@@ -270,6 +273,66 @@ const {
 		color: var(--primary);
 	}
 
+	/* Dropdown Styles */
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.dropdown-trigger {
+		background: none;
+		border: none;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-family: inherit;
+		transition: color 0.2s;
+	}
+
+	.dropdown:hover .dropdown-trigger {
+		color: var(--primary);
+	}
+
+	.dropdown-menu {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%) translateY(10px);
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		width: 180px;
+		padding: 8px;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.2s ease;
+		box-shadow: var(--card-shadow);
+	}
+
+	.dropdown:hover .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(-50%) translateY(0);
+	}
+
+	.dropdown-menu a {
+		display: block;
+		padding: 10px 12px;
+		color: var(--text) !important;
+		text-decoration: none;
+		font-size: 0.9rem;
+		border-radius: 6px;
+	}
+
+	.dropdown-menu a:hover {
+		background: var(--bg-alt);
+		color: var(--primary) !important;
+	}
+
 	.cta-btn {
 		background: var(--primary);
 		color: white !important;
@@ -359,6 +422,19 @@ const {
 
 	.footer-col a:hover {
 		color: var(--primary);
+	}
+
+	.footer-bottom {
+		max-width: 1300px;
+		margin: 40px auto 0;
+		padding-top: 30px;
+		border-top: 1px solid var(--border);
+		text-align: center;
+	}
+
+	.footer-bottom p {
+		color: var(--text-muted);
+		font-size: 0.9rem;
 	}
 
 	@media (max-width: 900px) {

@@ -57,6 +57,32 @@ export const PILLARS = {
             'Multi-site Systems',
             'Funnel Workflows'
         ]
+    },
+    BEST_PRACTICES: {
+        title: 'EverRank Best Practices & How-To Guides',
+        slug: 'best-practices',
+        categories: [
+            'Getting Started with EverRank',
+            'ContentIQ Workflow Tips',
+            'Nova Dashboard Mastery',
+            'AI Prompt Builder Optimization',
+            'SEO Audit Best Practices',
+            'Multi-site & Team Management',
+            'Scaling SEO with EverRank'
+        ]
+    },
+    CASE_STUDIES: {
+        title: 'Case Studies & Success Stories',
+        slug: 'case-studies',
+        categories: [
+            'SEO Case Studies',
+            'AI Optimization Success',
+            'Growth Hacks',
+            'Multi-site Wins',
+            'Agency Client Stories',
+            'EverRank ROI Examples',
+            'Predictive Ranking Wins'
+        ]
     }
 } as const;
 
