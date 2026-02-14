@@ -1,0 +1,117 @@
+
+> everrank-blog@0.0.1 build
+> astro build
+
+[2m01:08:58[22m [34m[vite][39m Re-optimizing dependencies because lockfile has changed
+[2m01:08:59[22m [34m[content][39m Syncing content
+[2m01:08:59[22m [34m[content][39m Synced content
+[2m01:08:59[22m [34m[types][39m Generated [2m1.49s[22m
+[2m01:08:59[22m [34m[build][39m output: [34m"static"[39m
+[2m01:08:59[22m [34m[build][39m mode: [34m"static"[39m
+[2m01:08:59[22m [34m[build][39m directory: [34mC:\Users\NefuTrades\everrank-blog\dist\[39m
+[2m01:08:59[22m [34m[build][39m Collecting build info...
+[2m01:08:59[22m [34m[build][39m [32mΓ£ô Completed in 1.50s.[39m
+[2m01:08:59[22m [34m[build][39m Building static entrypoints...
+[2m01:09:00[22m [34m[vite][39m [32mΓ£ô built in 632ms[39m
+[2m01:09:00[22m [34m[build][39m [32mΓ£ô Completed in 673ms.[39m
+
+[42m[30m building client (vite) [39m[49m
+[2m01:09:00[22m [34m[vite][39m transforming...
+[2m01:09:00[22m [34m[vite][39m [32mΓ£ô[39m 1 modules transformed.
+[2m01:09:00[22m [34m[vite][39m rendering chunks...
+[2m01:09:00[22m [34m[vite][39m [32mΓ£ô built in 11ms[39m
+
+[42m[30m generating static routes [39m[49m
+[2m01:09:00[22m [32mΓû╢[39m src/pages/[pillar]/[category]/[...slug].astro
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/on-page-seo/index.html[22m [2m(+7ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/on-page-seo/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/off-page-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/off-page-seo/welcome-to-everrank-seo/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/keyword-research/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/keyword-research/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/content-optimization/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/content-optimization/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/technical-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/technical-seo/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/common-mistakes/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/common-mistakes/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/saas-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/saas-seo/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/evergreen-strategy/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/seo-fundamentals/evergreen-strategy/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ai-research/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ai-research/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/predictive-ranking/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/predictive-ranking/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ai-audits/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ai-audits/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/contentiq-workflows/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/contentiq-workflows/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/topic-authority/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/topic-authority/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ml-ranking/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/ml-ranking/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/case-studies/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/ai-insights/case-studies/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/next-js-performance/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/next-js-performance/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/next-scanner/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/next-scanner/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/core-web-vitals/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/core-web-vitals/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/js-frameworks/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/js-frameworks/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/cdn-strategy/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/cdn-strategy/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/technical-fixes/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/technical-fixes/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/performance-metrics/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/tech-optimization/performance-metrics/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/topic-clustering/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/topic-clustering/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/compounding-content/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/compounding-content/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/zero-backlink-ranking/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/zero-backlink-ranking/welcome-to-everrank-seo/index.html[22m [2m(+1ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/long-tail-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/long-tail-seo/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/growth-case-studies/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/growth-case-studies/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/multi-site-systems/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/multi-site-systems/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/funnel-workflows/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/growth-systems/funnel-workflows/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/getting-started-with-everrank/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/getting-started-with-everrank/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/contentiq-workflow-tips/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/contentiq-workflow-tips/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/nova-dashboard-mastery/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/nova-dashboard-mastery/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/ai-prompt-builder-optimization/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/ai-prompt-builder-optimization/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/seo-audit-best-practices/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/seo-audit-best-practices/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/multi-site-team-management/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/multi-site-team-management/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/scaling-seo-with-everrank/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/best-practices/scaling-seo-with-everrank/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/seo-case-studies/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/seo-case-studies/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/ai-optimization-success/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/ai-optimization-success/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/growth-hacks/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/growth-hacks/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/multi-site-wins/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/multi-site-wins/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/agency-client-stories/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/agency-client-stories/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/everrank-roi-examples/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/everrank-roi-examples/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓö£ΓöÇ[39m [2m/case-studies/predictive-ranking-wins/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m   [34mΓööΓöÇ[39m [2m/case-studies/predictive-ranking-wins/welcome-to-everrank-seo/index.html[22m [2m(+2ms)[22m 
+[2m01:09:00[22m [32mΓû╢[39m src/pages/index.astro
+[2m01:09:00[22m   [34mΓööΓöÇ[39m [2m/index.html[22m [2m(+3ms)[22m 
+[2m01:09:00[22m [32mΓ£ô Completed in 179ms.
+[39m
+[2m01:09:00[22m [34m[build][39m 87 page(s) built in [1m2.44s[22m
+[2m01:09:00[22m [34m[build][39m [1mComplete![22m
