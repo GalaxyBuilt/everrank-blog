@@ -10,6 +10,8 @@ const {
 	description = "Institutional-grade SEO, Performance, and AI Content insights.",
 	image = "https://everrank.app/og-image.png"
 } = Astro.props;
+
+import TxchyaChat from '../components/TxchyaChat.astro';
 ---
 
 <!doctype html>
@@ -68,7 +70,7 @@ const {
 			<nav class="nav-container">
 				<a href="https://everrank.app" class="logo">
 					<div class="logo-icon">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.71-2.5.71-2.5h2.29L12 11l4.5 4.5 1 1.5 2 2 1-1-2-2-1.5-1L21 12l-5.5-1.5V8.21c0-.21 0-.21-.71-.71L10.5 3 6.5 7l4.5 4.5H8.71c0 .21 0 .21-.71.71L4.5 16.5Z"/><path d="m12 11-4 4"/><path d="m16 7-4 4"/></svg>
 					</div>
 					<span>EverRank</span>
 				</a>
@@ -147,6 +149,7 @@ const {
                 }
             });
         </script>
+        <TxchyaChat />
 	</body>
 </html>
 
