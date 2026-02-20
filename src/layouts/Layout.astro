@@ -82,25 +82,15 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 					<img src="/logo.jpg" alt="EverRank" class="logo-img" />
 					<span>EverRank</span>
 				</a>
-				<div class="nav-links">
-					<div class="dropdown">
-						<button class="dropdown-trigger">
-							Nova Standalone <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
-						</button>
-						<div class="dropdown-menu">
-							<a href="https://everrank.app/nova#desktop">Desktop App</a>
-							<a href="https://everrank.app/nova#cli">CLI Tool</a>
-							<a href="https://github.com/GalaxyBuilt/nova" target="_blank">GitHub Source</a>
-						</div>
-					</div>
+				<div class="nav-links desktop-only">
 					<div class="dropdown">
 						<button class="dropdown-trigger">
 							Products <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
 						</button>
 						<div class="dropdown-menu">
-							<a href="https://everrank.app/contentiq">ContentIQ</a>
+							<a href="https://everrank.app/contentiq">ContentIQ Engine</a>
 							<a href="https://everrank.app/next">Next Scanner</a>
-							<a href="https://everrank.app/prompts">AI Prompts</a>
+							<a href="https://everrank.app/prompts">AI Prompt Lab</a>
 							<a href="/blog/case-studies">Case Studies</a>
 						</div>
 					</div>
@@ -108,10 +98,47 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 					<a href="https://everrank.app/login" class="login-btn">Log In</a>
                     <a href="https://everrank.app/register" class="cta-btn">Get Started</a>
 				</div>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-                    <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
-                    <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                </button>
+
+				<div class="header-actions">
+					<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+						<svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+						<svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+					</button>
+					<button id="mobile-menu-toggle" class="mobile-menu-toggle lg:hidden" aria-label="Open Menu">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+					</button>
+				</div>
+			</nav>
+
+			<!-- Mobile Menu Overlay -->
+			<div id="mobile-menu" class="mobile-menu">
+				<div class="mobile-menu-content">
+					<div class="mobile-menu-header">
+						<a href="https://everrank.app" class="logo">
+							<img src="/logo.jpg" alt="EverRank" class="logo-img" />
+							<span>EverRank</span>
+						</a>
+						<button id="mobile-menu-close" class="close-btn">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+						</button>
+					</div>
+					<div class="mobile-nav-links">
+						<div class="mobile-section">
+							<span class="section-title">Intelligence Products</span>
+							<a href="https://everrank.app/contentiq">ContentIQ Engine</a>
+							<a href="https://everrank.app/next">Next Scanner</a>
+							<a href="https://everrank.app/prompts">AI Prompt Lab</a>
+							<a href="/blog/case-studies">Case Studies</a>
+						</div>
+						<div class="mobile-section">
+							<span class="section-title">General</span>
+							<a href="/blog">Blog</a>
+							<a href="https://everrank.app/login">Log In</a>
+						</div>
+						<a href="https://everrank.app/register" class="mobile-cta">Get Started Free</a>
+					</div>
+				</div>
+			</div>
 			</nav>
 		</header>
 
@@ -373,100 +400,139 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 		transform: translateY(-1px);
 	}
 
-    .theme-toggle {
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mobile-menu-toggle {
         background: var(--bg-alt);
         border: 1px solid var(--border);
         width: 40px;
         height: 40px;
         border-radius: 50%;
         cursor: pointer;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         color: var(--text);
-        margin-left: 12px;
     }
 
-    .theme-toggle svg { transition: transform 0.3s ease; }
-    .sun { display: none; }
-    .moon { display: block; }
+    .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
 
-    [data-theme="dark"] .sun { display: block; }
-    [data-theme="dark"] .moon { display: none; }
+    .mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+    }
 
-	/* Main Content */
-	main {
-		max-width: 1300px;
-		margin: 0 auto;
-		padding: 120px 24px 80px;
-		min-height: 80vh;
-	}
+    .mobile-menu-content {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+    }
 
-	/* Footer */
-	.main-footer {
-		background: var(--bg-alt);
-		border-top: 1px solid var(--border);
-		padding: 60px 24px;
-	}
+    .mobile-menu.active .mobile-menu-content {
+        transform: translateX(0);
+    }
 
-	.footer-container {
-		max-width: 1300px;
-		margin: 0 auto;
-		display: flex;
-		justify-content: space-between;
-		gap: 60px;
-	}
+    .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+    }
 
-	.footer-info {
-		max-width: 300px;
-	}
+    .close-btn {
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+    }
 
-	.footer-info p {
-		margin-top: 16px;
-		color: var(--text-muted);
-		line-height: 1.6;
-	}
+    .mobile-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
 
-	.footer-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 80px;
-	}
+    .mobile-section {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 
-	.footer-col h4 {
-		margin-bottom: 24px;
-		font-size: 1rem;
-		font-weight: 700;
-	}
+    .section-title {
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        opacity: 0.5;
+    }
 
-	.footer-col a {
-		display: block;
-		text-decoration: none;
-		color: var(--text-muted);
-		margin-bottom: 12px;
-		transition: color 0.2s;
-	}
+    .mobile-nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
 
-	.footer-col a:hover {
-		color: var(--primary);
-	}
-
-	.footer-bottom {
-		max-width: 1300px;
-		margin: 40px auto 0;
-		padding-top: 30px;
-		border-top: 1px solid var(--border);
-		text-align: center;
-	}
-
-	.footer-bottom p {
-		color: var(--text-muted);
-		font-size: 0.9rem;
-	}
+    .mobile-cta {
+        margin-top: 20px;
+        background: var(--gradient);
+        color: white !important;
+        padding: 16px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700 !important;
+    }
 
 	@media (max-width: 900px) {
-		.nav-links { display: none; }
+		.desktop-only { display: none; }
+        .mobile-menu-toggle { display: flex; }
 		.footer-container { flex-direction: column; text-align: center; align-items: center; }
 		.footer-grid { gap: 40px; }
 	}
 </style>
+
+<script is:inline>
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const menuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle?.addEventListener('click', () => {
+        mobileMenu?.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    menuClose?.addEventListener('click', () => {
+        mobileMenu?.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+
+    // Close on link click
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu?.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+</script>
