@@ -205,8 +205,10 @@ import TxchyaChat from '../components/TxchyaChat.astro';
                 
                 if (newTheme === 'dark') {
                     document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
                 } else {
                     document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
                 }
             });
         </script>
@@ -428,11 +430,32 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 		transform: translateY(-1px);
 	}
 
-    .header-actions {
+    .theme-toggle {
+        background: var(--bg-alt);
+        border: 1px solid var(--border);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: center;
+        color: var(--text);
+        transition: all 0.3s ease;
+        padding: 0;
     }
+
+    .theme-toggle:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Theme Toggle Icon Visibility */
+    :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+    :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+    
+    :root:not([data-theme="dark"]) .theme-toggle .sun { display: none; }
+    :root:not([data-theme="dark"]) .theme-toggle .moon { display: block; }
 
     .mobile-menu-toggle {
         background: var(--bg-alt);
