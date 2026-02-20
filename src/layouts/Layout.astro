@@ -79,9 +79,7 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 		<header class="main-header">
 			<nav class="nav-container">
 				<a href="https://everrank.app" class="logo">
-					<div class="logo-icon">
-						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.71-2.5.71-2.5h2.29L12 11l4.5 4.5 1 1.5 2 2 1-1-2-2-1.5-1L21 12l-5.5-1.5V8.21c0-.21 0-.21-.71-.71L10.5 3 6.5 7l4.5 4.5H8.71c0 .21 0 .21-.71.71L4.5 16.5Z"/><path d="m12 11-4 4"/><path d="m16 7-4 4"/></svg>
-					</div>
+					<img src="/logo.jpg" alt="EverRank" class="logo-img" />
 					<span>EverRank</span>
 				</a>
 				<div class="nav-links">
@@ -267,15 +265,15 @@ import TxchyaChat from '../components/TxchyaChat.astro';
 		-webkit-text-fill-color: transparent;
 	}
 
-	.logo-icon {
+	.logo-img {
 		width: 32px;
 		height: 32px;
-		background: var(--gradient);
 		border-radius: 8px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		-webkit-text-fill-color: initial;
+		object-fit: cover;
+	}
+
+	.logo-icon {
+		display: none;
 	}
 
 	.nav-links {
