@@ -6,18 +6,15 @@ import { format } from 'date-fns';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog', ({ data }) => {
-    // Only return posts that are published AND have a pillar
-    return data.draft !== true && data.pillar !== undefined && data.pillar !== null;
+  const allPosts = await getCollection('blog', ({ data, id }) => {
+    // Return posts that are in the comparison-guides directory and aren't drafts
+    return data.draft !== true && id.includes('comparison-guides/');
   });
 
   return allPosts.map(post => {
-    // The pillar slug as per our structure (lowercase, hyphens)
-    const pillarSlug = post.data.pillar.toLowerCase().replace(/_/g, '-');
     return {
       params: { 
-        pillar: pillarSlug,
-        slug: post.slug.split('/').pop() || post.slug // Support for folder slugs
+        slug: post.slug.split('/').pop() // Ensure just the basename maps to the URL
       },
       props: { post, allPosts }
     };
@@ -27,18 +24,11 @@ export async function getStaticPaths() {
 const { post, allPosts } = Astro.props;
 const { Content, headings } = await post.render();
 
-// Fetch related posts in the same pillar (excluding current)
-const relatedPosts = allPosts
-  .filter((p: typeof post) => p.data.pillar === post.data.pillar && p.slug !== post.slug)
-  .sort((a: typeof post, b: typeof post) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
-
 const postImage = post.data.image ? post.data.image.src : `https://everrank.app/og-image.png`;
 
 // JSON-LD Article schema
 const siteBase = 'https://everrank.app';
-const pillarSlug = post.data.pillar.toLowerCase().replace(/_/g, '-');
-const canonicalUrl = `${siteBase}/blog/${pillarSlug}/${post.slug.split('/').pop()}`;
+const canonicalUrl = `${siteBase}/blog/comparison-guides/${post.slug.split('/').pop()}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -77,7 +67,7 @@ const jsonLd = {
     <nav class="breadcrumb">
         <a href="/blog">Hub</a>
         <span>/</span>
-        <a href={`/blog/${pillarSlug}`}>{post.data.pillar.replace(/_/g, ' ')}</a>
+        <a href={`/blog`}>Comparison Guides</a>
         <span>/</span>
         <span class="curr">{post.data.title}</span>
     </nav>
@@ -106,40 +96,6 @@ const jsonLd = {
                 {post.data.tags.map((tag: string) => (
                   <span class="tag">#{tag}</span>
                 ))}
-              </div>
-
-              {relatedPosts.length > 0 && (
-                <div class="related-intelligence">
-                  <h3>Related Intelligence</h3>
-                  <div class="related-grid">
-                    {relatedPosts.map(related => {
-                      const relPillarSlug = related.data.pillar.toLowerCase().replace(/_/g, '-');
-                      const relSlug = related.slug.split('/').pop();
-                      return (
-                        <a href={`/blog/${relPillarSlug}/${relSlug}`} class="related-card">
-                          <span class="related-cat">{related.data.category}</span>
-                          <h4>{related.data.title}</h4>
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-              
-              <!-- Newsletter Signup -->
-              <div class="newsletter-box">
-                <div class="newsletter-icon">✉️</div>
-                <h3>Get Weekly SEO Intelligence</h3>
-                <p>Actionable insights, algorithm updates, and ContentIQ tips — delivered every Tuesday.</p>
-                <form class="newsletter-form" id="newsletter-form">
-                  <input type="email" id="newsletter-email" placeholder="your@email.com" required class="email-input" aria-label="Email address" />
-                  <button type="submit" class="newsletter-btn">Subscribe Free</button>
-                </form>
-                <div class="newsletter-thanks" id="newsletter-thanks" style="display:none;">
-                  <span class="thanks-icon">🎉</span>
-                  <strong>You're in!</strong> Your first issue arrives Tuesday.
-                </div>
-                <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
               </div>
 
               <div class="post-cta">
@@ -176,15 +132,6 @@ const jsonLd = {
     const scrolled = (winScroll / height) * 100;
     const bar = document.getElementById('progress-bar');
     if (bar) bar.style.width = scrolled + '%';
-  });
-
-  // Newsletter form
-  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
-  const thanks = document.getElementById('newsletter-thanks') as HTMLElement | null;
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (form) form.style.display = 'none';
-    if (thanks) thanks.style.display = 'flex';
   });
 </script>
 
@@ -370,40 +317,6 @@ const jsonLd = {
     font-weight: 500;
   }
 
-  /* Newsletter */
-  .newsletter-box {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
-    border: 1px solid rgba(102, 126, 234, 0.25);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  .newsletter-icon { font-size: 2rem; margin-bottom: 12px; }
-  .newsletter-box h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; }
-  .newsletter-box > p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
-  .newsletter-form {
-    display: flex; gap: 10px; max-width: 440px; margin: 0 auto 14px;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .email-input {
-    flex: 1; min-width: 200px; padding: 12px 16px;
-    background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
-    color: var(--text); font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.2s;
-  }
-  .email-input:focus { border-color: var(--primary); }
-  .newsletter-btn {
-    padding: 12px 20px; background: var(--gradient); color: white; border: none;
-    border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
-    font-family: inherit; transition: opacity 0.2s, transform 0.2s;
-  }
-  .newsletter-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-  .newsletter-thanks {
-    display: none; align-items: center; justify-content: center;
-    gap: 8px; font-size: 1rem; font-weight: 600; margin-bottom: 14px;
-  }
-  .newsletter-note { font-size: 0.8rem; color: var(--text-muted); }
-
   .post-cta {
     background: linear-gradient(to bottom right, var(--bg-alt), rgba(102, 126, 234, 0.05));
     border: 1px solid var(--primary);
@@ -423,57 +336,6 @@ const jsonLd = {
     border-radius: 12px;
     text-decoration: none;
     font-weight: 700;
-  }
-
-  /* Related Posts */
-  .related-intelligence {
-    margin: 60px 0;
-    padding-top: 40px;
-    border-top: 1px dashed var(--border);
-  }
-
-  .related-intelligence h3 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-  }
-
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 24px;
-  }
-
-  .related-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 24px;
-    border-radius: 16px;
-    text-decoration: none;
-    transition: transform 0.2s, border-color 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .related-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary);
-  }
-
-  .related-cat {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--primary);
-    font-weight: 700;
-  }
-
-  .related-card h4 {
-    color: var(--text);
-    font-size: 1.1rem;
-    font-weight: 700;
-    line-height: 1.4;
   }
 
   /* Sidebar TOC */

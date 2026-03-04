@@ -7,7 +7,7 @@ export async function GET(_context: APIContext) {
     const index = posts
         .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
         .map((post) => {
-            const categorySlug = post.data.category
+            const categorySlug = (post.data.category ?? '')
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/-+$/, '');
@@ -23,11 +23,11 @@ export async function GET(_context: APIContext) {
                 url: `/blog/${post.data.pillar}/${categorySlug}/${post.slug}`,
                 // Searchable blob for full-text matching
                 searchText: [
-                    post.data.title,
-                    post.data.description,
-                    post.data.category,
-                    post.data.pillar.replace(/-/g, ' '),
-                    ...post.data.tags,
+                    post.data.title ?? '',
+                    post.data.description ?? '',
+                    post.data.category ?? '',
+                    (post.data.pillar ?? '').replace(/-/g, ' '),
+                    ...(post.data.tags ?? []),
                 ].join(' ').toLowerCase(),
             };
         });

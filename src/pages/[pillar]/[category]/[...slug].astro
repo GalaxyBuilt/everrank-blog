@@ -10,17 +10,21 @@ export async function getStaticPaths() {
     return data.draft !== true;
   });
 
-  return allPosts.map(post => {
-    const catSlug = post.data.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
-    return {
-      params: { 
-        pillar: post.data.pillar, 
-        category: catSlug,
-        slug: post.slug 
-      },
-      props: { post, allPosts }
-    };
-  });
+  const paths = allPosts
+    .filter(post => post.data.pillar && post.data.category && post.slug)
+    .map(post => {
+      const catSlug = (post.data.category ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+      return {
+        params: { 
+          pillar: post.data.pillar ?? '', 
+          category: catSlug,
+          slug: post.slug 
+        },
+        props: { post, allPosts }
+      };
+    });
+
+  return paths;
 }
 
 const { post, allPosts } = Astro.props;
@@ -75,7 +79,7 @@ const jsonLd = {
     <nav class="breadcrumb">
         <a href="/blog">Hub</a>
         <span>/</span>
-        <a href={`/blog/${post.data.pillar}`}>{post.data.pillar.replace('-', ' ')}</a>
+        {post.data.pillar && <a href={`/blog/${post.data.pillar}`}>{post.data.pillar.replace('-', ' ')}</a>}
         <span>/</span>
         <span class="curr">{post.data.category}</span>
     </nav>

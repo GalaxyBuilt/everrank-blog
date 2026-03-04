@@ -1,9 +1,14 @@
-[2m05:05:17[22m [34m[content][39m Syncing content
-[2m05:05:17[22m [34m[content][39m Content config changed
-[2m05:05:17[22m [34m[content][39m Clearing content store
+
+> everrank-blog@0.0.1 dev
+> astro dev
+
+[2m06:01:52[22m [34m[types][39m Generated [2m18ms[22m
+[2m06:01:53[22m [34m[content][39m Syncing content
+[2m06:01:53[22m [34m[content][39m Content config changed
+[2m06:01:53[22m [34m[content][39m Clearing content store
 [InvalidContentEntryDataError] blog ΓåÆ everrank-vs-brightedge data does not match collection schema.
 
-  date**: **date: Expected type `"date"`, received `"string"`
+  date**: **date: Invalid date
 
   Hint:
     See https://docs.astro.build/en/guides/content-collections/ for more information on content schemas.

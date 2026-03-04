@@ -91,70 +91,107 @@ const totalArticles = allPosts.length;
 
 		<header class="main-header">
 			<nav class="nav-container">
-				<a href="https://everrank.app" class="logo">
-					<img src="/logo.jpg" alt="EverRank" class="logo-img" />
-					<span>EverRank</span>
-				</a>
-				<div class="nav-links desktop-only">
-					<div class="dropdown">
-						<button class="dropdown-trigger">
-							Products <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
-						</button>
-						<div class="dropdown-menu">
-							<a href="https://everrank.app/DraftIQ">DraftIQ Engine</a>
-							<a href="https://everrank.app/next">Next Scanner</a>
-							<a href="https://everrank.app/prompts">AI Prompt Lab</a>
-							<a href="/blog/case-studies">Case Studies</a>
-						</div>
-					</div>
-                    <a href="/blog" class="active">Blog</a>
-					<a href="/blog/search" class="search-link" aria-label="Search">
-						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-						Search
-					</a>
-					<a href="https://everrank.app/login" class="login-btn">Log In</a>
-                    <a href="https://everrank.app/register" class="cta-btn">Get Started</a>
-				</div>
-
-				<div class="header-actions">
-					<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-						<svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
-						<svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-					</button>
-					<button id="mobile-menu-toggle" class="mobile-menu-toggle lg:hidden" aria-label="Open Menu">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-					</button>
-            </div>
-
-			<!-- Mobile Menu Overlay -->
-			<div id="mobile-menu" class="mobile-menu">
-				<div class="mobile-menu-content">
-					<div class="mobile-menu-header">
+				<div class="header-content-wrapper">
+					<!-- Desktop Layout -->
+					<div class="desktop-nav">
 						<a href="https://everrank.app" class="logo">
 							<img src="/logo.jpg" alt="EverRank" class="logo-img" />
 							<span>EverRank</span>
 						</a>
-						<button id="mobile-menu-close" class="close-btn">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-						</button>
+
+						<div class="nav-links-and-actions">
+							<div class="nav-links-group">
+								<div class="dropdown">
+									<button class="dropdown-trigger">
+										Categories <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg>
+									</button>
+									<div class="dropdown-menu">
+										<a href="/blog/seo-fundamentals">SEO Fundamentals</a>
+										<a href="/blog/ai-insights">AI + DraftIQ</a>
+										<a href="/blog/tech-optimization">Tech Optimization</a>
+										<a href="/blog/growth-systems">Growth Systems</a>
+										<a href="/blog/best-practices">How-To Guides</a>
+										<a href="/blog/case-studies">Case Studies</a>
+									</div>
+								</div>
+								<a href="/blog" class="active">All Articles</a>
+								<a href="https://everrank.app/pricing">Pricing</a>
+								
+								<div class="feed-links">
+									<a href="/blog/rss.xml" title="RSS Feed"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg></a>
+									<a href="/blog/feed.json" title="JSON Feed"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></a>
+								</div>
+							</div>
+
+							<div class="actions-group">
+								<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+									<svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+									<svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+								</button>
+								<a href="https://everrank.app/login" class="login-btn">Log In</a>
+								<a href="https://everrank.app/register" class="cta-btn">Get Started</a>
+							</div>
+						</div>
 					</div>
-					<div class="mobile-nav-links">
-						<div class="mobile-section">
-							<span class="section-title">Intelligence Products</span>
-							<a href="https://everrank.app/DraftIQ">DraftIQ Engine</a>
-							<a href="https://everrank.app/next">Next Scanner</a>
-							<a href="https://everrank.app/prompts">AI Prompt Lab</a>
-							<a href="/blog/case-studies">Case Studies</a>
+
+					<!-- Mobile Layout -->
+					<div class="mobile-nav">
+						<a href="https://everrank.app" class="logo">
+							<img src="/logo.jpg" alt="EverRank" class="logo-img" />
+							<span>EverRank</span>
+						</a>
+
+						<div class="mobile-actions">
+							<button id="mobile-theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
+								<svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"/></svg>
+								<svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+							</button>
+							<button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open Menu">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+							</button>
 						</div>
-						<div class="mobile-section">
-							<span class="section-title">General Navigation</span>
-							<a href="/blog">EverRank Blog</a>
-							<a href="https://everrank.app/login">Log In</a>
-						</div>
-						<a href="https://everrank.app/register" class="mobile-cta">Get Started Free</a>
 					</div>
 				</div>
-			</div>
+
+				<!-- Mobile Menu Overlay -->
+				<div id="mobile-menu" class="mobile-menu">
+					<div class="mobile-menu-content">
+						<div class="mobile-menu-header">
+							<a href="https://everrank.app" class="logo">
+								<img src="/logo.jpg" alt="EverRank" class="logo-img" />
+								<span>EverRank</span>
+							</a>
+							<button id="mobile-menu-close" class="close-btn">
+								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+							</button>
+						</div>
+						<div class="mobile-nav-links">
+							<div class="mobile-section">
+								<span class="section-title">Categories</span>
+								<a href="/blog/seo-fundamentals">SEO Fundamentals</a>
+								<a href="/blog/ai-insights">AI + DraftIQ</a>
+								<a href="/blog/tech-optimization">Tech Optimization</a>
+								<a href="/blog/growth-systems">Growth Systems</a>
+								<a href="/blog/best-practices">How-To Guides</a>
+								<a href="/blog/case-studies">Case Studies</a>
+							</div>
+							<div class="mobile-section">
+								<span class="section-title">Navigation</span>
+								<a href="/blog">EverRank Blog</a>
+								<a href="https://everrank.app/pricing">Pricing</a>
+								<a href="https://everrank.app/login">Login to Dashboard</a>
+							</div>
+							<div class="mobile-section">
+								<span class="section-title">Feeds</span>
+								<div style="display: flex; gap: 24px;">
+									<a href="/blog/rss.xml" class="feed-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/></svg> RSS</a>
+									<a href="/blog/feed.json" class="feed-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> JSON</a>
+								</div>
+							</div>
+							<a href="https://everrank.app/register" class="mobile-cta">Get Started Free</a>
+						</div>
+					</div>
+				</div>
 			</nav>
 		</header>
 
@@ -212,7 +249,9 @@ const totalArticles = allPosts.length;
 
         <script>
             const themeBtn = document.getElementById('theme-toggle');
-            themeBtn?.addEventListener('click', () => {
+            const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
+
+            const handleThemeToggle = () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 
@@ -226,7 +265,10 @@ const totalArticles = allPosts.length;
                     document.documentElement.classList.remove('dark');
                     document.documentElement.setAttribute('data-theme', 'light');
                 }
-            });
+            };
+
+            themeBtn?.addEventListener('click', handleThemeToggle);
+            mobileThemeBtn?.addEventListener('click', handleThemeToggle);
         </script>
         <TxchyaChat />
 	</body>
@@ -311,19 +353,82 @@ const totalArticles = allPosts.length;
 		top: 0;
 		width: 100%;
 		z-index: 1000;
-		background: rgba(var(--bg-rgb), 0.8);
-		backdrop-filter: blur(12px);
+		background: #ffffff; /* Default light */
 		border-bottom: 1px solid var(--border);
+        transition: all 0.3s ease;
 	}
 
+    :root[data-theme="dark"] .main-header, .dark .main-header {
+        background: #111111;
+    }
+
 	.nav-container {
-		max-width: 1300px;
+		max-width: 1400px;
 		margin: 0 auto;
 		height: 72px;
 		display: flex;
 		align-items: center;
 		padding: 0 24px;
+        width: 100%;
+	}
+
+	.header-content-wrapper {
+		width: 100%;
+	}
+
+	.desktop-nav {
+		display: flex;
+		align-items: center;
 		justify-content: space-between;
+		width: 100%;
+	}
+
+	.nav-links-and-actions {
+		display: flex;
+		align-items: center;
+		gap: 32px;
+	}
+
+	.nav-links-group {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+	}
+
+	.nav-links-group a {
+		text-decoration: none;
+		color: var(--text-muted);
+		font-size: 0.95rem;
+		font-weight: 500;
+		transition: all 0.2s ease;
+	}
+
+	.nav-links-group a:hover, .nav-links-group a.active {
+		color: var(--primary);
+	}
+
+	.feed-links {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 0 12px;
+		border-left: 1px solid var(--border);
+	}
+
+	.feed-links a {
+		color: var(--text-muted);
+		display: flex;
+        transition: color 0.2s;
+	}
+
+    .feed-links a:hover {
+        color: var(--primary);
+    }
+
+	.actions-group {
+		display: flex;
+		align-items: center;
+		gap: 16px;
 	}
 
 	.logo {
@@ -334,6 +439,7 @@ const totalArticles = allPosts.length;
 		color: var(--text);
 		font-weight: 800;
 		font-size: 1.4rem;
+		flex-shrink: 0;
 	}
 
 	.logo span {
@@ -347,30 +453,7 @@ const totalArticles = allPosts.length;
 		height: 32px;
 		border-radius: 8px;
 		object-fit: cover;
-		display: block; /* Ensure it doesn't get clipped by line-height */
-		-webkit-text-fill-color: initial; /* Reset in case inherited */
-	}
-
-	.logo-icon {
-		display: none;
-	}
-
-	.nav-links {
-		display: flex;
-		align-items: center;
-		gap: 28px;
-	}
-
-	.nav-links a {
-		text-decoration: none;
-		color: var(--text-muted);
-		font-size: 0.95rem;
-		font-weight: 500;
-		transition: all 0.2s ease;
-	}
-
-	.nav-links a:hover, .nav-links a.active {
-		color: var(--primary);
+		display: block;
 	}
 
 	/* Dropdown Styles */
@@ -391,6 +474,7 @@ const totalArticles = allPosts.length;
 		gap: 6px;
 		font-family: inherit;
 		transition: color 0.2s;
+		padding: 8px 0;
 	}
 
 	.dropdown:hover .dropdown-trigger {
@@ -400,23 +484,23 @@ const totalArticles = allPosts.length;
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
-		left: 50%;
-		transform: translateX(-50%) translateY(10px);
-		background: var(--card-bg);
+		left: 0;
+		transform: translateY(10px);
+		background: var(--bg); /* Solid */
 		border: 1px solid var(--border);
 		border-radius: 12px;
-		width: 180px;
+		width: 200px;
 		padding: 8px;
 		opacity: 0;
 		visibility: hidden;
 		transition: all 0.2s ease;
-		box-shadow: var(--card-shadow);
+		box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
 	}
 
 	.dropdown:hover .dropdown-menu {
 		opacity: 1;
 		visibility: visible;
-		transform: translateX(-50%) translateY(0);
+		transform: translateY(0);
 	}
 
 	.dropdown-menu a {
@@ -433,18 +517,32 @@ const totalArticles = allPosts.length;
 		color: var(--primary) !important;
 	}
 
+	.login-btn {
+		color: var(--text-muted);
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 500;
+		padding: 8px 12px;
+        transition: color 0.2s;
+	}
+
+    .login-btn:hover {
+        color: var(--primary);
+    }
+
 	.cta-btn {
-		background: var(--primary);
+		background: var(--gradient);
 		color: white !important;
 		padding: 10px 20px;
 		border-radius: 8px;
 		font-weight: 600 !important;
+		text-decoration: none;
+        transition: transform 0.2s;
 	}
 
-	.cta-btn:hover {
-		background: var(--primary-hover);
-		transform: translateY(-1px);
-	}
+    .cta-btn:hover {
+        transform: translateY(-1px);
+    }
 
     .theme-toggle {
         background: var(--bg-alt);
@@ -463,7 +561,6 @@ const totalArticles = allPosts.length;
 
     .theme-toggle:hover {
         border-color: var(--primary);
-        color: var(--primary);
     }
 
     /* Theme Toggle Icon Visibility */
@@ -473,18 +570,37 @@ const totalArticles = allPosts.length;
     :root:not([data-theme="dark"]) .theme-toggle .sun { display: none; }
     :root:not([data-theme="dark"]) .theme-toggle .moon { display: block; }
 
-    .mobile-menu-toggle {
-        background: var(--bg-alt);
-        border: 1px solid var(--border);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        color: var(--text);
-    }
+	/* Mobile Styles */
+	.mobile-nav {
+		display: none;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.mobile-actions {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.mobile-menu-toggle {
+		background: var(--bg-alt);
+		border: 1px solid var(--border);
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--text);
+	}
+
+	@media (max-width: 1100px) {
+		.desktop-nav { display: none; }
+		.mobile-nav { display: flex; }
+	}
 
     .mobile-menu {
         position: fixed;
@@ -508,12 +624,17 @@ const totalArticles = allPosts.length;
         top: 0;
         width: 100%;
         height: 100%;
-        background: var(--bg);
+        background: #ffffff; /* Solid Light */
         transform: translateX(100%);
-        transition: transform 0.3s ease;
-        padding: 24px;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 32px 24px;
         display: flex;
         flex-direction: column;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+
+    :root[data-theme="dark"] .mobile-menu-content, .dark .mobile-menu-content {
+        background: #111111; /* Solid Dark */
     }
 
     .mobile-menu.active .mobile-menu-content {
@@ -562,19 +683,26 @@ const totalArticles = allPosts.length;
         font-weight: 600;
     }
 
+	.feed-item {
+		display: flex !important;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.9rem !important;
+	}
+
     .mobile-cta {
-        margin-top: 20px;
+        margin-top: auto;
         background: var(--gradient);
         color: white !important;
         padding: 16px;
         border-radius: 12px;
         text-align: center;
         font-weight: 700 !important;
+        text-decoration: none;
+        margin-bottom: 24px;
     }
 
 	@media (max-width: 900px) {
-		.desktop-only { display: none; }
-        .mobile-menu-toggle { display: flex; }
 		.footer-container { padding: 40px 24px; }
 		.footer-grid { 
             grid-template-columns: 1fr;

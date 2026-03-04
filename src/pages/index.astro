@@ -1,335 +1,1236 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { PILLARS } from '../config';
+import { getCollection } from 'astro:content';
 
-const iconMap: Record<string, string> = {
-    SEO_FUNDAMENTALS: '🎯',
-    AI_INSIGHTS: '🤖',
-    TECH_OPTIMIZATION: '⚡',
-    GROWTH_SYSTEMS: '📈',
-    BEST_PRACTICES: '📚',
-    CASE_STUDIES: '🏆'
+// Get all blog posts
+const allPosts = await getCollection('blog');
+const featuredPosts = allPosts.filter(post => post.data.featured).slice(0, 3);
+const recentPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate || b.data.date).valueOf() - new Date(a.data.pubDate || a.data.date).valueOf())
+  .slice(0, 8);
+
+// Define standalone categories (outside pillars)
+const STANDALONE_CATEGORIES = [
+  { name: 'Comparison Guides', slug: 'comparison-guides', icon: '⚖️', color: '#ff4d4f' },
+  { name: 'How-To Guides', slug: 'how-to', icon: '🛠️', color: '#52c41a' }
+];
+
+// Get unique categories from pillars
+const pillarCategories = Object.values(PILLARS).flatMap(pillar => pillar.categories);
+
+// Enhanced icon and color mapping for pillars
+const pillarStyles: Record<string, { icon: string; gradient: string; pattern: string }> = {
+    SEO_FUNDAMENTALS: { 
+        icon: '🎯', 
+        gradient: 'from-emerald-500 to-teal-500',
+        pattern: 'radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.1) 0%, transparent 50%)'
+    },
+    AI_INSIGHTS: { 
+        icon: '🤖', 
+        gradient: 'from-violet-500 to-purple-500',
+        pattern: 'repeating-linear-gradient(45deg, rgba(139, 92, 246, 0.05) 0px, rgba(139, 92, 246, 0.05) 10px, transparent 10px, transparent 20px)'
+    },
+    TECH_OPTIMIZATION: { 
+        icon: '⚡', 
+        gradient: 'from-amber-500 to-orange-500',
+        pattern: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, transparent 50%)'
+    },
+    GROWTH_SYSTEMS: { 
+        icon: '📈', 
+        gradient: 'from-blue-500 to-indigo-500',
+        pattern: 'radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)'
+    },
+    BEST_PRACTICES: { 
+        icon: '📚', 
+        gradient: 'from-rose-500 to-pink-500',
+        pattern: 'repeating-linear-gradient(0deg, rgba(244, 114, 182, 0.05) 0px, rgba(244, 114, 182, 0.05) 5px, transparent 5px, transparent 15px)'
+    },
+    CASE_STUDIES: { 
+        icon: '🏆', 
+        gradient: 'from-yellow-500 to-amber-500',
+        pattern: 'radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 60%)'
+    }
 };
 
-const imageMap: Record<string, string> = {
-    SEO_FUNDAMENTALS: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-    AI_INSIGHTS: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
-    TECH_OPTIMIZATION: 'https://images.unsplash.com/photo-1551288049-bbbda50a13a9?auto=format&fit=crop&q=80&w=800',
-    GROWTH_SYSTEMS: 'https://images.unsplash.com/photo-1551288049-bbbda50a13a9?auto=format&fit=crop&q=80&w=800',
-    BEST_PRACTICES: '/blog/blog_best_practices_hero.png',
-    CASE_STUDIES: '/blog/blog_case_studies_hero.png'
+// Format date helper
+const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
 };
 ---
 
 <Layout title="EverRank Blog | AI SEO & Performance Intelligence">
+  <!-- Dynamic Hero with Particle Effect -->
   <section class="hero">
+    <div class="hero-particles" id="particles"></div>
     <div class="hero-content">
-      <div class="badge">Intelligence Hub</div>
-      <h1>The Future of <span class="gradient-text">Search Performance</span></h1>
+      <div class="badge-group">
+        <span class="badge">✨ Intelligence Hub</span>
+        <span class="badge-outline">{allPosts.length}+ Articles</span>
+      </div>
+      <h1 class="hero-title">
+        Where <span class="gradient-text">AI</span> Meets
+        <span class="gradient-text">Search Excellence</span>
+      </h1>
       <p class="hero-subtitle">
-        Actionable insights on AI-driven SEO, Next.js optimization, and content velocity. 
-        Learn how to build authority that compounds.
+        Dive deep into 6 strategic pillars of modern SEO. From AI-driven insights to technical optimization,
+        we're building the future of organic growth.
       </p>
+      
+      <!-- Enhanced Search -->
+      <div class="search-wrapper">
+        <form action="/blog/search" method="GET" class="search-glass">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input 
+            type="search" 
+            name="q" 
+            placeholder="Search 100+ articles, guides, and case studies..." 
+            class="search-input-glass"
+          />
+          <button type="submit" class="search-btn-glass">
+            <span>Search</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14m-7-7 7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="quick-stats">
+        <div class="stat-item">
+          <span class="stat-value">{allPosts.length}+</span>
+          <span class="stat-label">Articles</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">6</span>
+          <span class="stat-label">Pillars</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">{pillarCategories.length}</span>
+          <span class="stat-label">Topics</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="pillars-section">
-    <div class="section-header">
-      <h2>Content Pillars</h2>
-      <p>Explore our deep-dives into vertical-specific growth strategies.</p>
+  <!-- Featured Section with Slider -->
+  {featuredPosts.length > 0 && (
+    <section class="featured-section">
+      <div class="section-header">
+        <div>
+          <span class="section-badge">Editor's Choice</span>
+          <h2>Featured <span class="gradient-text">Stories</span></h2>
+        </div>
+        <p>Hand-picked insights from our experts</p>
+      </div>
+
+      <div class="featured-slider">
+        {featuredPosts.map(post => (
+          <a href={`/blog/${post.slug}`} class="featured-card glass-effect">
+            <div class="featured-media">
+              <div class="featured-image">
+                <img src={post.data.image || '/blog/default-hero.jpg'} alt={post.data.title} />
+              </div>
+              <div class="featured-gradient"></div>
+              <div class="featured-content">
+                <div class="featured-meta">
+                  <span class="featured-category">{post.data.category}</span>
+                  <span class="featured-date">{formatDate(post.data.date)}</span>
+                </div>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="featured-author">
+                  <img src={'/default-avatar.jpg'} alt={post.data.author} />
+                  <span>{post.data.author}</span>
+                  <span class="featured-read">5 min read</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Pillars Showcase -->
+  <section class="pillars-showcase">
+    <div class="section-header centered">
+      <span class="section-badge">Knowledge Pillars</span>
+      <h2>Explore Our <span class="gradient-text">Strategic Pillars</span></h2>
+      <p>Six comprehensive domains of SEO intelligence, each with deep-dive categories</p>
     </div>
 
-    <div class="pillars-grid">
-      {Object.keys(PILLARS).map((key) => {
-        const pillar = PILLARS[key as keyof typeof PILLARS];
-        
+    <div class="pillars-matrix">
+      {Object.entries(PILLARS).map(([key, pillar]) => {
+        const style = pillarStyles[key as keyof typeof pillarStyles];
         return (
-          <div class="pillar-card luxe">
-            <div class="card-bg" style={`background-image: url(${imageMap[key]})`}></div>
-            <div class="card-overlay"></div>
-            <div class="card-content">
-              <div class="card-icon">{iconMap[key] || '📄'}</div>
-              <h3>{pillar.title}</h3>
-              <p class="pillar-desc">Advanced methodology for {pillar.title.toLowerCase()}.</p>
-              
-              <div class="category-tags">
-                {pillar.categories.slice(0, 4).map((cat: string) => (
-                  <span class="tag">{cat}</span>
-                ))}
-                {pillar.categories.length > 4 && <span class="tag plus">+{pillar.categories.length - 4}</span>}
+          <div class="pillar-card premium">
+            <div class="pillar-bg" style={{ background: style.pattern }}></div>
+            <div class="pillar-header">
+              <div class={`pillar-icon ${key.toLowerCase()}`}>
+                <span class="pillar-emoji">{style.icon}</span>
               </div>
+              <div class="pillar-stats">
+                <span class="pillar-count">{pillar.categories.length}</span>
+                <span class="pillar-label">topics</span>
+              </div>
+            </div>
+            
+            <h3>{pillar.title}</h3>
+            
+            <div class="pillar-categories">
+              {pillar.categories.slice(0, 5).map(cat => (
+                <a href={`/blog/${pillar.slug}/${cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="pillar-category-chip">
+                  {cat}
+                </a>
+              ))}
+              {pillar.categories.length > 5 && (
+                <span class="pillar-more">+{pillar.categories.length - 5} more</span>
+              )}
+            </div>
 
-              <a href={`/blog/${pillar.slug}`} class="explore-btn">
+            <div class="pillar-footer">
+              <a href={`/blog/${pillar.slug}`} class="pillar-link">
                 Explore Pillar
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M5 12h14m-7-7 7 7-7 7"/>
+                </svg>
               </a>
+              <div class={`pillar-gradient-bar bg-gradient-to-r ${style.gradient}`}></div>
             </div>
           </div>
-        )
+        );
       })}
     </div>
   </section>
 
-  <section class="newsletter">
+  <!-- Standalone Categories Highlight -->
+  <section class="standalone-section">
+    <div class="standalone-container">
+      <div class="standalone-content">
+        <span class="standalone-badge">⚡ Actionable Implementation</span>
+        <h2>Beyond The Pillars</h2>
+        <p>In-depth functional comparisons and step-by-step guides</p>
+      </div>
+
+      <div class="standalone-cards">
+        {STANDALONE_CATEGORIES.map(cat => (
+          <a href={cat.slug === 'how-to' ? `/blog/how-to` : `/blog/${cat.slug}`} class="standalone-card" style={{ background: `linear-gradient(135deg, ${cat.color}15 0%, transparent 100%)` }}>
+            <div class="standalone-icon" style={{ background: cat.color }}>{cat.icon}</div>
+            <div>
+              <h4>{cat.name}</h4>
+              <span class="standalone-link">
+                View all →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Articles Grid -->
+  <section class="latest-section">
+    <div class="section-header">
+      <div>
+        <span class="section-badge">Fresh Content</span>
+        <h2>Latest <span class="gradient-text">Articles</span></h2>
+      </div>
+      <p>Recent insights from our SEO experts</p>
+    </div>
+
+    <div class="articles-grid">
+      {recentPosts.map(post => (
+        <article class="article-card">
+          <a href={post.id.includes('comparison-guides/') ? `/blog/comparison-guides/${post.slug}` : (post.id.includes('how-to/') ? `/blog/how-to/${post.slug}` : `/blog/${post.data.pillar}/${post.slug}`)} class="article-link">
+            <div class="article-media">
+              <img src={post.data.image || '/blog/default-hero.jpg'} alt={post.data.title} />
+              <div class="article-overlay"></div>
+            </div>
+            
+            <div class="article-content">
+              <div class="article-meta">
+                <span class="article-category" style={{ 
+                  background: `linear-gradient(135deg, ${
+                    Object.values(pillarStyles).find(s => pillarStyles[post.data.pillar as keyof typeof pillarStyles]?.icon)?.gradient || '#3b82f6'
+                  })` 
+                }}>
+                  {post.data.category}
+                </span>
+                <span class="article-date">{formatDate(post.data.date)}</span>
+              </div>
+
+              <h3>{post.data.title}</h3>
+              
+              <p class="article-excerpt">{post.data.description}</p>
+
+              <div class="article-footer">
+                <div class="article-author">
+                  <img src={'/default-avatar.jpg'} alt={post.data.author} />
+                  <span>{post.data.author}</span>
+                </div>
+                <span class="article-read-time">5 min read</span>
+              </div>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Interactive Category Explorer -->
+  <section class="explorer-section">
+    <div class="explorer-container">
+      <h2>Explore All <span class="gradient-text">{pillarCategories.length + STANDALONE_CATEGORIES.length}</span> Categories</h2>
+      
+      <div class="category-cloud">
+        {Object.entries(PILLARS).map(([key, pillar]) => (
+          <div class="pillar-category-group">
+            <span class="pillar-group-label">{pillarStyles[key as keyof typeof pillarStyles]?.icon} {pillar.title.split(' ')[0]}</span>
+            <div class="group-categories">
+              {pillar.categories.map(cat => (
+                <a href={`/blog/${pillar.slug}/${cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class="cloud-link">
+                  {cat}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+        
+        <div class="pillar-category-group standalone-group">
+          <span class="pillar-group-label">✨ Standalone</span>
+          <div class="group-categories">
+            {STANDALONE_CATEGORIES.map(cat => (
+              <a href={cat.slug === 'how-to' ? `/blog/how-to` : `/blog/${cat.slug}`} class="cloud-link highlight">
+                {cat.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Newsletter -->
+  <section class="newsletter-premium">
     <div class="newsletter-card">
-        <h3>Stay Ahead of the Algorithm</h3>
-        <p>Get bi-weekly insights on AI shifts and ranking factors delivered to your inbox.</p>
-        <form class="newsletter-form" onsubmit="return false;">
-            <input type="email" placeholder="Enter your work email" />
-            <button type="submit" class="cta-btn">Join 2,400+ SEOs</button>
+      <div class="newsletter-pattern"></div>
+      <div class="newsletter-content">
+        <span class="newsletter-badge">📬 Weekly Intelligence Brief</span>
+        <h3>Join <span class="gradient-text">2,400+</span> SEO Leaders</h3>
+        <p>Get bi-weekly insights on AI shifts, ranking factors, and growth strategies. No spam, just intelligence.</p>
+        
+        <form class="newsletter-form-premium" onsubmit="return false;">
+          <div class="form-group">
+            <input type="email" placeholder="Your work email" />
+            <button type="submit">
+              Subscribe Free
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
         </form>
+
+        <div class="newsletter-features">
+          <span>✨ Bi-weekly insights</span>
+          <span>🔒 No spam</span>
+          <span>⚡ Unsubscribe anytime</span>
+        </div>
+      </div>
+
+      <div class="newsletter-stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Open Rate</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2.4k+</span>
+          <span class="stat-label">Subscribers</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">6</span>
+          <span class="stat-label">Pillars</span>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
 
-<style>
-  /* Hero Section */
+<style is:global>
+  /* Modern Design Tokens */
+  :root {
+    --pillar-1: #10b981;
+    --pillar-2: #8b5cf6;
+    --pillar-3: #f59e0b;
+    --pillar-4: #3b82f6;
+    --pillar-5: #ec4899;
+    --pillar-6: #f97316;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Hero Section with Particles */
   .hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 60px 0 100px;
+    padding: 120px 24px;
+    overflow: hidden;
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 900px;
-    margin: 0 auto;
+  }
+
+  .badge-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 32px;
   }
 
   .badge {
-    display: inline-block;
-    background: var(--bg-alt);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--primary);
-    border: 1px solid var(--border);
-    margin-bottom: 24px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 20px -10px var(--primary);
   }
 
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+  .badge-outline {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 24px;
-    letter-spacing: -0.03em;
-  }
-
-  .gradient-text {
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
   }
 
   .hero-subtitle {
     font-size: 1.25rem;
     color: var(--text-muted);
-    line-height: 1.6;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
+    line-height: 1.6;
   }
 
-  /* Section Header */
-  .section-header {
-    margin-bottom: 48px;
+  /* Glass Search */
+  .search-wrapper {
+    max-width: 700px;
+    margin: 0 auto 48px;
   }
 
-  .section-header h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+  .search-glass {
+    display: flex;
+    align-items: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 60px;
+    padding: 8px;
+    transition: all 0.3s;
   }
 
-  .section-header p {
+  .search-glass:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  }
+
+  .search-icon {
+    margin-left: 20px;
     color: var(--text-muted);
   }
 
-  /* Pillars Grid */
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 32px;
-    margin-bottom: 100px;
+  .search-input-glass {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 16px 12px;
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
   }
 
-  .pillar-card.luxe {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
+  .search-btn-glass {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-weight: 600;
     display: flex;
-    flex-direction: column;
-    min-height: 400px;
-    z-index: 1;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
   }
 
-  .card-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.6s ease;
-    z-index: -2;
+  .search-btn-glass:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px -10px var(--primary);
   }
 
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(17, 17, 17, 0.4) 0%, rgba(17, 17, 17, 0.9) 100%);
-    z-index: -1;
-  }
-
-  .pillar-card.luxe:hover .card-bg {
-    transform: scale(1.1);
-  }
-
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: relative;
-    z-index: 2;
-  }
-
-  .pillar-card.luxe:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px -10px rgba(102, 126, 234, 0.3);
-  }
-
-  .card-icon {
-    font-size: 32px;
-    margin-bottom: 24px;
-    width: 64px;
-    height: 64px;
-    background: var(--bg-alt);
+  /* Quick Stats */
+  .quick-stats {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    border: 1px solid var(--border);
+    gap: 32px;
   }
 
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    line-height: 1.3;
+  .stat-item {
+    display: flex;
+    flex-direction: column;
   }
 
-  .pillar-desc {
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
     color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-    flex-grow: 1;
   }
 
-  .category-tags {
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+
+  /* Section Headers */
+  .section-header {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .section-header.centered {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  /* Pillars Matrix */
+  .pillars-showcase {
+    padding: 80px 24px;
+    background: var(--bg-alt);
+  }
+
+  .pillars-matrix {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 32px;
+  }
+
+  .pillar-card.premium {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .pillar-card.premium:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: var(--card-shadow);
+  }
+
+  .pillar-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    z-index: 0;
+  }
+
+  .pillar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .pillar-emoji {
+    font-size: 32px;
+  }
+
+  .pillar-stats {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .pillar-count {
+    font-weight: 800;
+    color: var(--primary);
+  }
+
+  .pillar-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .pillar-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar-categories {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
   }
 
-  .tag {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
+  .pillar-category-chip {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .pillar-category-chip:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .pillar-more {
+    font-size: 0.85rem;
     color: var(--text-muted);
-    font-weight: 500;
+    padding: 6px 12px;
   }
 
-  .tag.plus {
+  .pillar-footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  .pillar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     color: var(--primary);
-    font-weight: 700;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 20px;
   }
 
-  .explore-btn {
+  .pillar-gradient-bar {
+    height: 4px;
+    width: 0;
+    border-radius: 4px;
+    transition: width 0.4s;
+  }
+
+  .pillar-card:hover .pillar-gradient-bar {
+    width: 100%;
+  }
+
+  /* Standalone Section */
+  .standalone-section {
+    padding: 80px 24px;
+  }
+
+  .standalone-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .standalone-content {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .standalone-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .standalone-cards {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .standalone-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    padding: 32px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: all 0.3s;
+  }
+
+  .standalone-card:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: var(--card-shadow);
+  }
+
+  .standalone-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+  }
+
+  .standalone-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .standalone-link {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Articles Grid */
+  .latest-section {
+    padding: 80px 24px;
+    background: var(--bg-alt);
+  }
+
+  .articles-grid {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 32px;
+  }
+
+  .article-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+
+  .article-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: var(--card-shadow);
+  }
+
+  .article-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .article-media {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .article-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+
+  .article-card:hover .article-media img {
+    transform: scale(1.05);
+  }
+
+  .trending-pill {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 2;
+  }
+
+  .article-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    z-index: 1;
+  }
+
+  .article-content {
+    padding: 24px;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .article-category {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .article-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .article-excerpt {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .article-author {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    transition: gap 0.2s;
   }
 
-  .explore-btn:hover {
+  .article-author img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .article-author span {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .article-read-time {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .load-more {
+    text-align: center;
+    margin-top: 60px;
+  }
+
+  .load-more-btn {
+    display: inline-flex;
+    align-items: center;
     gap: 12px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 16px 40px;
+    border-radius: 60px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
   }
 
-  /* Newsletter Box */
-  .newsletter {
-    margin-top: 40px;
+  .load-more-btn:hover {
+    background: var(--primary);
+    color: white;
+    gap: 18px;
+  }
+
+  /* Category Explorer */
+  .explorer-section {
+    padding: 80px 24px;
+  }
+
+  .explorer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .explorer-container h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .category-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+  }
+
+  .pillar-category-group {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+  }
+
+  .pillar-group-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .group-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .cloud-link {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cloud-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .cloud-link.highlight {
+    background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+    color: white;
+    border-color: transparent;
+  }
+
+  .standalone-group .cloud-link {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: white;
+    border-color: transparent;
+  }
+
+  /* Premium Newsletter */
+  .newsletter-premium {
+    padding: 80px 24px 120px;
   }
 
   .newsletter-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    padding: 60px 40px;
-    border-radius: 32px;
-    text-align: center;
-    max-width: 800px;
+    max-width: 1100px;
     margin: 0 auto;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 48px;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
   }
 
-  .newsletter-card h3 {
-    font-size: 2rem;
-    margin-bottom: 12px;
+  .newsletter-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.1;
   }
 
-  .newsletter-card p {
+  .newsletter-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .newsletter-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .newsletter-content h3 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  .newsletter-content p {
+    font-size: 1.1rem;
     color: var(--text-muted);
     margin-bottom: 32px;
-  }
-
-  .newsletter-form {
-    display: flex;
-    gap: 16px;
     max-width: 500px;
-    margin: 0 auto;
   }
 
-  .newsletter-form input {
+  .newsletter-form-premium {
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    display: flex;
+    gap: 12px;
+    max-width: 500px;
+  }
+
+  .form-group input {
     flex: 1;
-    padding: 12px 20px;
-    border-radius: 12px;
+    padding: 16px 20px;
+    border-radius: 16px;
     border: 1px solid var(--border);
     background: var(--bg);
     color: var(--text);
-    font-family: inherit;
     font-size: 1rem;
-    outline: none;
   }
 
-  .newsletter-form input:focus {
-    border-color: var(--primary);
-  }
-
-  .cta-btn {
-    background: var(--primary);
+  .form-group button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
     color: white;
-    padding: 12px 24px;
-    border-radius: 12px;
     border: none;
+    padding: 16px 32px;
+    border-radius: 16px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
+    transition: all 0.3s;
     white-space: nowrap;
-    transition: background 0.2s;
   }
 
-  .cta-btn:hover {
-    background: var(--primary-hover);
+  .form-group button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px -10px var(--primary);
+  }
+
+  .newsletter-features {
+    display: flex;
+    gap: 24px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .newsletter-stats-grid {
+    display: flex;
+    gap: 32px;
+    padding: 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .newsletter-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .form-group {
+      flex-direction: column;
+    }
+
+    .newsletter-features {
+      justify-content: center;
+    }
+
+    .newsletter-stats-grid {
+      justify-content: center;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
   }
 
   @media (max-width: 600px) {
-    .newsletter-form { flex-direction: column; }
-    .pillars-grid { grid-template-columns: 1fr; }
-    .hero { padding: 40px 0; }
+    .hero { padding: 100px 16px; }
+    .pillars-matrix { grid-template-columns: 1fr; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .quick-stats { flex-wrap: wrap; }
+    .stat-divider { display: none; }
+    .badge-group { flex-direction: column; }
+  }
+</style>
+
+<script>
+  // Simple particle effect
+  document.addEventListener('DOMContentLoaded', () => {
+    const particles = document.getElementById('particles');
+    if (!particles) return;
+
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.style.position = 'absolute';
+      particle.style.width = '2px';
+      particle.style.height = '2px';
+      particle.style.background = 'rgba(102, 126, 234, 0.3)';
+      particle.style.borderRadius = '50%';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animation = `float ${5 + Math.random() * 10}s linear infinite`;
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particles.appendChild(particle);
+    }
+  });
+</script>
+
+<style>
+  @keyframes float {
+    from { transform: translateY(0) translateX(0); }
+    to { transform: translateY(-100px) translateX(20px); opacity: 0; }
   }
 </style>

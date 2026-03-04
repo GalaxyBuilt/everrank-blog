@@ -5,8 +5,11 @@ import type { APIContext } from 'astro';
 export async function GET(context: APIContext) {
     const posts = await getCollection('blog', ({ data }) => !data.draft);
 
+    // Filter out posts missing essential fields to avoid RSS generation errors
+    const withDateAndContent = posts.filter(p => p.data.date && (p.data.title || p.data.description));
+
     // Sort newest first
-    const sorted = posts.sort(
+    const sorted = withDateAndContent.sort(
         (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
     );
 
@@ -38,17 +41,19 @@ export async function GET(context: APIContext) {
                 .replace(/-+$/, '');
             const categoryUrl = `https://everrank.app/blog/${post.data.pillar}/${categorySlug}/${post.slug}`;
 
+            // If missing both title and description, skip this item
+            if (!post.data.title && !post.data.description) return null;
             return {
                 title: post.data.title,
                 pubDate: post.data.date,
                 description: post.data.description,
                 link: categoryUrl,
-                categories: [post.data.pillar, post.data.category, ...post.data.tags],
+                categories: [(post.data.pillar ?? ''), (post.data.category ?? ''), ...(post.data.tags ?? [])].filter((c): c is string => typeof c === 'string' && c.length > 0),
                 author: `hello@everrank.app (${post.data.author})`,
                 customData: post.data.image
                     ? `<media:content url="${post.data.image}" medium="image" />`
                     : '',
             };
-        }),
+        }).filter(item => item !== null),
     });
 }

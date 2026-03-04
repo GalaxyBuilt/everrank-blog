@@ -1,0 +1,415 @@
+
+> everrank-blog@0.0.1 dev
+> astro dev
+
+[2m06:33:19[22m [34m[types][39m Generated [2m3ms[22m
+[2m06:33:19[22m [34m[content][39m Syncing content
+[2m06:33:19[22m [34m[content][39m Synced content
+[2m06:33:19[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+
+[42m[1m astro [22m[49m [32mv5.17.1[39m [2mready in[22m 931 [2mms[22m
+
+[2mΓöâ[22m Local    [36mhttp://localhost:4321/blog[39m
+[2mΓöâ[22m Network  [2muse --host to expose[22m
+
+[2m06:33:19[22m [32mwatching for file changes...[39m
+[2m06:33:53[22m [34m[200][39m / [2m80ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m6ms[22m
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m2ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:33:53[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:33:53 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:33:54 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:13[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:37:17[22m [34m[200][39m / [2m34ms[22m
+[2m06:37:17[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+06:37:17 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:17[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:17[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+06:37:17 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:17[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:37:17 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:19 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:19 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:19[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:19[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:37:19 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:19 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:19 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:33[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:37:36[22m [34m[200][39m / [2m7ms[22m
+[2m06:37:36[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+06:37:36 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:36[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:36[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+06:37:36 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:36[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:37:39 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:39 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:39[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:39[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:37:39 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:39 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:39 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:53[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:37:57[22m [34m[200][39m / [2m16ms[22m
+[2m06:37:57[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+06:37:57 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:57[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:37:57 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:57[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:37:57[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:37:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:37:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:37:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:37:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:38:09[22m [34m[200][39m [34mHEAD[39m / [2m9ms[22m
+[2m06:39:12[22m [34m[200][39m / [2m51ms[22m
+[2m06:39:12[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+06:39:12 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:39:12[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:39:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:39:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:39:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:39:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:39:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:39:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:39:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:12[22m [34m[200][39m / [2m409ms[22m
+[2m06:41:12[22m [33m[404][39m /default-hero.jpg [2m3ms[22m
+06:41:12 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:12[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:41:12 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:12 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:12[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:41:12[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:12[22m [33m[404][39m /default-hero.jpg [2m2ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m2ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m11ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:13[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:41:13[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:41:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:13 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:24[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:41:25[22m [34m[200][39m / [2m23ms[22m
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:25[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:25[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:31[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:41:33[22m [34m[200][39m / [2m19ms[22m
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:41:33[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:41:33 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:43:59[22m [34m[watch][39m /src/layouts/Layout.astro?astro&type=style&index=0&lang.css
+[2m06:43:59[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:44:41[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:44:47[22m [34m[200][39m / [2m341ms[22m
+[2m06:44:47[22m [33m[404][39m /default-hero.jpg [2m4ms[22m
+[2m06:44:47[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+06:44:47 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:48[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:48 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:44:54[22m [34m[watch][39m src/layouts/Layout.astro
+[2m06:44:58[22m [34m[200][39m / [2m10ms[22m
+06:44:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:44:58[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:58[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+06:44:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:44:59[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:44:59 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:51:58[22m [34m[200][39m / [2m98ms[22m
+[2m06:51:58[22m [33m[404][39m /default-hero.jpg [2m3ms[22m
+06:51:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:51:58[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:51:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:51:58[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:51:58[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:51:58 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m2ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m5ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m3ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m5ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m3ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m6ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m06:52:00[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+06:52:00 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:26:26[22m [34m[200][39m / [2m253ms[22m
+07:26:26 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:26:26[22m [33m[404][39m /default-hero.jpg [2m4ms[22m
+[2m07:26:26[22m [33m[404][39m /default-avatar.jpg [2m7ms[22m
+07:26:26 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:26 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:26:27[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:27[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+07:26:27 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m5ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m2ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:26:28[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:26:28 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:27:21[22m [34m[200][39m / [2m22ms[22m
+07:27:21 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:27:21[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:27:21[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+07:27:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:27:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:27:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:27:23[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:27:23[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:27:23[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:27:23[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:27:23[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m13ms[22m
+[2m07:27:24[22m [33m[404][39m /default-hero.jpg [2m24ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m13ms[22m
+[2m07:27:24[22m [33m[404][39m /default-hero.jpg [2m11ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m16ms[22m
+[2m07:27:24[22m [33m[404][39m /default-hero.jpg [2m11ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m14ms[22m
+[2m07:27:24[22m [33m[404][39m /default-hero.jpg [2m8ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m10ms[22m
+[2m07:27:24[22m [33m[404][39m /default-hero.jpg [2m8ms[22m
+[2m07:27:24[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+07:27:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:27:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:27:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:30:23[22m [34m[200][39m / [2m386ms[22m
+07:30:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:30:23[22m [33m[404][39m /default-hero.jpg [2m7ms[22m
+[2m07:30:23[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+07:30:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:30:23[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:30:23[22m [33m[404][39m /default-avatar.jpg [2m2ms[22m
+07:30:23 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:24 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m1ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m1ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+[2m07:30:24[22m [33m[404][39m /default-hero.jpg [2m0ms[22m
+[2m07:30:25[22m [33m[404][39m /default-avatar.jpg [2m0ms[22m
+07:30:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
+07:30:25 [ERROR] [router] Request URLs for public/ assets must also include your base. "/blog/logo.jpg" expected, but received "/logo.jpg".
