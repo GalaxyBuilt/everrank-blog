@@ -20,13 +20,13 @@ export const PILLARS = {
         ]
     },
     AI_INSIGHTS: {
-        title: 'AI + ContentIQ Insights',
+        title: 'AI + DraftIQ Insights',
         slug: 'ai-insights',
         categories: [
             'AI Research',
             'Predictive Ranking',
             'AI Audits',
-            'ContentIQ Workflows',
+            'DraftIQ Workflows',
             'Topic Authority',
             'ML Ranking',
             'Case Studies'
@@ -63,7 +63,7 @@ export const PILLARS = {
         slug: 'best-practices',
         categories: [
             'Getting Started with EverRank',
-            'ContentIQ Workflow Tips',
+            'DraftIQ Workflow Tips',
             'Nova Dashboard Mastery',
             'AI Prompt Builder Optimization',
             'SEO Audit Best Practices',

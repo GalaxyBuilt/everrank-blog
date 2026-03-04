@@ -1,114 +1,203 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
-import { PILLARS } from '../../../config';
+import { format } from 'date-fns';
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const paths = [];
-  
-  for (const pillarKey of Object.keys(PILLARS)) {
-    const pillar = PILLARS[pillarKey as keyof typeof PILLARS];
-    for (const category of pillar.categories) {
-      const catSlug = category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
-      
-      paths.push({
-        params: { 
-          pillar: pillar.slug, 
-          category: catSlug,
-          slug: undefined 
-        },
-        props: { pillarTitle: pillar.title, categoryName: category }
-      });
+  const allPosts = await getCollection('blog', ({ data }) => {
+    return data.draft !== true;
+  });
 
-      paths.push({
-        params: {
-          pillar: pillar.slug,
-          category: catSlug,
-          slug: 'welcome-to-everrank-seo'
-        },
-        props: { pillarTitle: pillar.title, categoryName: category }
-      });
-    }
-  }
-
-  return paths;
+  return allPosts.map(post => {
+    const catSlug = post.data.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+    return {
+      params: { 
+        pillar: post.data.pillar, 
+        category: catSlug,
+        slug: post.slug 
+      },
+      props: { post, allPosts }
+    };
+  });
 }
 
-const { pillar, category, slug } = Astro.params;
-const { pillarTitle, categoryName } = Astro.props;
+const { post, allPosts } = Astro.props;
+const { Content, headings } = await post.render();
 
-// Use a dynamic image path if one exists, otherwise fallback to default OG
-const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https://everrank.app/og-image.png`;
+// Fetch related posts in the same pillar (excluding current)
+const relatedPosts = allPosts
+  .filter((p: typeof post) => p.data.pillar === post.data.pillar && p.slug !== post.slug)
+  .sort((a: typeof post, b: typeof post) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const postImage = post.data.image ? post.data.image.src : `https://everrank.app/og-image.png`;
+
+// JSON-LD Article schema
+const siteBase = 'https://everrank.app';
+const catSlugPath = post.data.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '');
+const canonicalUrl = `${siteBase}/blog/${post.data.pillar}/${catSlugPath}/${post.slug}`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "image": postImage,
+  "url": canonicalUrl,
+  "datePublished": post.data.date.toISOString(),
+  "dateModified": post.data.date.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": post.data.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "EverRank",
+    "logo": { "@type": "ImageObject", "url": `${siteBase}/favicon.ico` }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+  "keywords": post.data.tags.join(', ')
+};
 ---
 
 <Layout 
-  title={`${categoryName} | ${pillarTitle}`} 
-  description={`Deep dive into ${categoryName} within the ${pillarTitle} pillar.`}
+  title={`${post.data.title} | EverRank Intelligence`} 
+  description={post.data.description}
   image={postImage}
 >
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <!-- Reading Progress Bar -->
+  <div id="progress-bar" class="progress-bar"></div>
+
   <div class="article-container">
     <nav class="breadcrumb">
-        <a href="/blog">Blog</a>
+        <a href="/blog">Hub</a>
         <span>/</span>
-        <a href="#">{pillarTitle}</a>
+        <a href={`/blog/${post.data.pillar}`}>{post.data.pillar.replace('-', ' ')}</a>
         <span>/</span>
-        <span class="curr">{categoryName}</span>
+        <span class="curr">{post.data.category}</span>
     </nav>
 
-    <article class="luxe-article">
-        <header class="article-header">
-            <div class="category-badge">{pillarTitle}</div>
-            <h1>{categoryName}</h1>
-            <div class="article-meta">
-                <span>By ContentIQ AI</span>
-                <span class="dot"></span>
-                <span>5 min read</span>
-                <span class="dot"></span>
-                <span>Feb 11, 2026</span>
-            </div>
-        </header>
+    <div class="layout-grid">
+      <article class="luxe-article">
+          <header class="article-header">
+              <div class="category-badge">{post.data.category}</div>
+              <h1>{post.data.title}</h1>
+              <div class="article-meta">
+                  <span>{post.data.author}</span>
+                  <span class="dot"></span>
+                  <time datetime={post.data.date.toISOString()}>
+                    {format(post.data.date, 'MMMM d, yyyy')}
+                  </time>
+              </div>
+          </header>
 
-        <div class="article-content">
-            <div class="path-well">
-                <span class="label">Topical Slug:</span>
-                <code>/blog/{pillar}/{category}/{slug || ''}</code>
-            </div>
-            
-            <p class="lead"> This page is a critical node in the EverRank topical authority graph. By clustering deep technical insights under the <strong>{pillarTitle}</strong> silo, we establish institutional-grade dominance.</p>
+          <div class="article-content prose">
+              <p class="lead">{post.data.description}</p>
+              <Content />
+          </div>
 
-            <div class="ai-insight-box">
-                <div class="ai-head">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
-                    <span>ContentIQ AI Strategy</span>
+          <footer class="article-footer">
+              <div class="tags">
+                {post.data.tags.map((tag: string) => (
+                  <span class="tag">#{tag}</span>
+                ))}
+              </div>
+
+              {relatedPosts.length > 0 && (
+                <div class="related-intelligence">
+                  <h3>Related Intelligence</h3>
+                  <div class="related-grid">
+                    {relatedPosts.map(related => (
+                      <a href={`/blog/${related.data.pillar}/${related.data.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}/${related.slug}`} class="related-card">
+                        <span class="related-cat">{related.data.category}</span>
+                        <h4>{related.data.title}</h4>
+                      </a>
+                    ))}
+                  </div>
                 </div>
-                <p>Generating high-authority evergreen content for "<strong>{categoryName}</strong>". Our systems are currently analyzing search intent, LSI keywords, and competitor gaps for this specific cluster.</p>
-            </div>
+              )}
+              
+              <!-- Newsletter Signup -->
+              <div class="newsletter-box">
+                <div class="newsletter-icon">✉️</div>
+                <h3>Get Weekly SEO Intelligence</h3>
+                <p>Actionable insights, algorithm updates, and ContentIQ tips — delivered every Tuesday.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                  <input type="email" id="newsletter-email" placeholder="your@email.com" required class="email-input" aria-label="Email address" />
+                  <button type="submit" class="newsletter-btn">Subscribe Free</button>
+                </form>
+                <div class="newsletter-thanks" id="newsletter-thanks" style="display:none;">
+                  <span class="thanks-icon">🎉</span>
+                  <strong>You're in!</strong> Your first issue arrives Tuesday.
+                </div>
+                <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+              </div>
 
-            <h2>Methodology</h2>
-            <p>We approach search performance as an engineering challenge. Content is not just text; it's data that must be structured, interlinked, and optimized for both humans and LLMs (Large Language Models).</p>
-            
-            <ul>
-                <li>Topical clustering via recursive silo mapping.</li>
-                <li>Intent-driven keyword orchestration.</li>
-                <li>Real-time performance auditing via Next Scanner.</li>
+              <div class="post-cta">
+                  <h3>Outrank Your Competitors with AI</h3>
+                  <p>Stop guessing what Google wants. Use EverRank's ContentIQ Engine to reverse-engineer the SERPs and build compounding authority.</p>
+                  <a href="https://everrank.app/register" class="cta-btn">Start Free Trial</a>
+              </div>
+          </footer>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar desktop-only">
+        {headings.length > 0 && (
+          <div class="toc-container">
+            <h3>Table of Contents</h3>
+            <ul class="toc-list">
+              {headings.map((heading) => (
+                <li class={`depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
             </ul>
-        </div>
-
-        <footer class="article-footer">
-            <a href="/blog" class="back-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m7 7-7-7 7-7"/></svg>
-                Back to Knowledge Base
-            </a>
-        </footer>
-    </article>
+          </div>
+        )}
+      </aside>
+    </div>
   </div>
 </Layout>
 
+<script>
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = scrolled + '%';
+  });
+
+  // Newsletter form
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('newsletter-thanks') as HTMLElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (form) form.style.display = 'none';
+    if (thanks) thanks.style.display = 'flex';
+  });
+</script>
+
 <style>
+  .progress-bar {
+    position: fixed;
+    top: 72px; /* Header height */
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--gradient);
+    z-index: 999;
+    transition: width 0.1s ease;
+  }
+
   .article-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 120px 24px 80px;
   }
 
   .breadcrumb {
@@ -117,6 +206,7 @@ const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https:
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 40px;
+    text-transform: capitalize;
   }
 
   .breadcrumb a {
@@ -125,7 +215,14 @@ const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https:
   }
 
   .breadcrumb a:hover { color: var(--primary); }
-  .breadcrumb .curr { color: var(--text); font-weight: 600; }
+  .breadcrumb .curr { color: var(--text); font-weight: 600; text-transform: capitalize; }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: start;
+  }
 
   .luxe-article {
     background: var(--card-bg);
@@ -150,13 +247,15 @@ const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https:
     font-weight: 700;
     margin-bottom: 16px;
     border: 1px solid rgba(102, 126, 234, 0.2);
+    text-transform: uppercase;
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.1;
     margin-bottom: 24px;
+    letter-spacing: -0.02em;
   }
 
   .article-meta {
@@ -165,79 +264,265 @@ const postImage = slug ? `https://everrank.app/promotions/${slug}.png` : `https:
     justify-content: center;
     gap: 16px;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .article-meta span:first-child {
+    font-weight: 600;
+    color: var(--text);
   }
 
   .dot { width: 4px; height: 4px; background: var(--border); border-radius: 50%; }
 
-  .path-well {
-    background: var(--bg-alt);
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.85rem;
-  }
-
-  .path-well .label { font-weight: 700; color: var(--text-muted); }
-  code { background: var(--bg); padding: 4px 8px; border-radius: 4px; color: var(--primary); }
-
+  /* Prose Styles */
   .article-content {
     font-size: 1.15rem;
     line-height: 1.8;
     color: var(--text);
   }
 
-  .lead { font-size: 1.3rem; margin-bottom: 40px; font-weight: 500; }
-
-  .ai-insight-box {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-    border: 1px solid var(--primary);
-    padding: 32px;
-    border-radius: 24px;
-    margin: 40px 0;
+  .lead { 
+    font-size: 1.3rem; 
+    margin-bottom: 40px; 
+    font-weight: 500; 
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
   }
 
-  .ai-head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 800;
+  .prose :global(h2) { font-size: 2rem; margin: 60px 0 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .prose :global(h3) { font-size: 1.5rem; margin: 40px 0 16px; font-weight: 700; }
+  .prose :global(p) { margin-bottom: 24px; }
+  .prose :global(ul), .prose :global(ol) { margin-bottom: 32px; padding-left: 24px; }
+  .prose :global(li) { margin-bottom: 12px; }
+  .prose :global(li::marker) { color: var(--primary); }
+  .prose :global(a) { color: var(--primary); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .prose :global(a:hover) { border-bottom-color: var(--primary); }
+  
+  .prose :global(blockquote) { 
+    border-left: 4px solid var(--primary); 
+    padding: 24px 32px; 
+    font-style: italic; 
+    background: var(--bg-alt);
+    border-radius: 0 16px 16px 0;
+    color: var(--text); 
+    margin: 40px 0; 
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .prose :global(img) { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 16px; 
+    margin: 40px 0; 
+    box-shadow: var(--card-shadow); 
+    border: 1px solid var(--border); 
+  }
+
+  .prose :global(pre) { 
+    background: #1a1b26; 
+    padding: 24px; 
+    border-radius: 12px; 
+    overflow-x: auto; 
+    margin: 32px 0; 
+    font-size: 0.95rem; 
+  }
+  
+  .prose :global(code) { 
+    font-family: 'Fira Code', monospace; 
+    background: var(--bg-alt); 
+    padding: 4px 6px; 
+    border-radius: 6px; 
+    font-size: 0.9em; 
     color: var(--primary);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
   }
+  
+  .prose :global(pre code) { background: transparent; padding: 0; color: #e0af68; }
 
-  h2 { font-size: 2rem; margin: 60px 0 24px; font-weight: 700; }
-  p { margin-bottom: 24px; }
-
-  ul { margin-bottom: 32px; padding-left: 20px; }
-  li { margin-bottom: 12px; }
-
+  /* Footer & CTA */
   .article-footer {
     margin-top: 60px;
     padding-top: 40px;
     border-top: 1px solid var(--border);
   }
 
-  .back-link {
+  .tags {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--primary);
-    font-weight: 700;
-    transition: gap 0.2s;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
   }
 
-  .back-link:hover { gap: 12px; }
+  .tag {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Newsletter */
+  .newsletter-box {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.25);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .newsletter-icon { font-size: 2rem; margin-bottom: 12px; }
+  .newsletter-box h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; }
+  .newsletter-box > p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+  .newsletter-form {
+    display: flex; gap: 10px; max-width: 440px; margin: 0 auto 14px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .email-input {
+    flex: 1; min-width: 200px; padding: 12px 16px;
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+    color: var(--text); font-size: 0.95rem; font-family: inherit; outline: none; transition: border-color 0.2s;
+  }
+  .email-input:focus { border-color: var(--primary); }
+  .newsletter-btn {
+    padding: 12px 20px; background: var(--gradient); color: white; border: none;
+    border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    font-family: inherit; transition: opacity 0.2s, transform 0.2s;
+  }
+  .newsletter-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .newsletter-thanks {
+    display: none; align-items: center; justify-content: center;
+    gap: 8px; font-size: 1rem; font-weight: 600; margin-bottom: 14px;
+  }
+  .newsletter-note { font-size: 0.8rem; color: var(--text-muted); }
+
+  .post-cta {
+    background: linear-gradient(to bottom right, var(--bg-alt), rgba(102, 126, 234, 0.05));
+    border: 1px solid var(--primary);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .post-cta h3 { font-size: 1.5rem; margin-bottom: 12px; font-weight: 800; }
+  .post-cta p { color: var(--text-muted); font-size: 1rem; margin-bottom: 24px; }
+  
+  .cta-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  /* Related Posts */
+  .related-intelligence {
+    margin: 60px 0;
+    padding-top: 40px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .related-intelligence h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .related-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+  }
+
+  .related-cat {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .related-card h4 {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  /* Sidebar TOC */
+  .article-sidebar {
+    position: sticky;
+    top: 120px;
+  }
+
+  .toc-container {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .toc-container h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .toc-list li { margin: 0; }
+  .toc-list .depth-2 { padding-left: 0; font-weight: 600; }
+  .toc-list .depth-3 { padding-left: 16px; font-size: 0.9rem; }
+  .toc-list .depth-4 { padding-left: 32px; font-size: 0.85rem; }
+
+  .toc-list a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.4;
+    display: block;
+  }
+
+  .toc-list a:hover { color: var(--primary); }
+
+  @media (max-width: 1024px) {
+    .layout-grid { grid-template-columns: 1fr; }
+    .desktop-only { display: none; }
+  }
 
   @media (max-width: 768px) {
+    .article-container { padding-top: 100px; }
     .luxe-article { padding: 40px 24px; }
     h1 { font-size: 2.2rem; }
   }

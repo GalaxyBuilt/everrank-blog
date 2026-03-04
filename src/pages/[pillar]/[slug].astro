@@ -1,0 +1,372 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { format } from 'date-fns';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { pillar: post.data.pillar, slug: post.slug },
+    props: { post, allPosts: posts },
+  }));
+}
+
+const { post, allPosts } = Astro.props;
+const { Content } = await post.render();
+
+// Build canonical URL
+const siteBase = 'https://everrank.app';
+const canonicalUrl = `${siteBase}/blog/${post.data.pillar}/${post.slug}`;
+const ogImage = post.data.image || `${siteBase}/og-image.png`;
+
+// JSON-LD Article schema
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "image": ogImage,
+  "url": canonicalUrl,
+  "datePublished": post.data.date.toISOString(),
+  "dateModified": post.data.date.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": post.data.author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "EverRank",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteBase}/favicon.ico`
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "keywords": post.data.tags.join(', ')
+};
+
+// Related Articles: same pillar first, then by tag overlap, exclude self
+const related = allPosts
+  .filter(p => p.slug !== post.slug && !p.data.draft)
+  .map(p => {
+    const samePillar = p.data.pillar === post.data.pillar ? 2 : 0;
+    const sharedTags = p.data.tags.filter((t: string) => post.data.tags.includes(t)).length;
+    return { post: p, score: samePillar + sharedTags };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map(({ post }) => post);
+---
+
+<Layout title={post.data.title} description={post.data.description} image={ogImage}>
+  <!-- JSON-LD Structured Data injected into <head> -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="blog-post">
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar" class="progress-bar"></div>
+
+    <!-- Header -->
+    <header class="post-header">
+      <div class="tags">
+        <a href={`/blog/${post.data.pillar}`} class="pillar-tag">{post.data.pillar.replace(/-/g, ' ')}</a>
+        {post.data.tags.map((tag: string) => (
+          <span class="tag">· {tag}</span>
+        ))}
+      </div>
+      <h1>{post.data.title}</h1>
+      <div class="meta">
+        <span class="author">{post.data.author}</span>
+        <span class="date">{format(post.data.date, 'MMMM d, yyyy')}</span>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="prose">
+      <Content />
+    </div>
+
+    <!-- Newsletter Signup -->
+    <div class="newsletter-box" id="newsletter-section">
+      <div class="newsletter-icon">✉️</div>
+      <h3>Get Weekly SEO Intelligence</h3>
+      <p>Actionable insights, algorithm updates, and ContentIQ tips — delivered every Tuesday.</p>
+      <form class="newsletter-form" id="newsletter-form">
+        <input
+          type="email"
+          id="newsletter-email"
+          placeholder="your@email.com"
+          required
+          class="email-input"
+          aria-label="Email address"
+        />
+        <button type="submit" class="newsletter-btn">Subscribe Free</button>
+      </form>
+      <div class="newsletter-thanks" id="newsletter-thanks" style="display:none;">
+        <span class="thanks-icon">🎉</span>
+        <strong>You're in!</strong> Your first issue arrives Tuesday.
+      </div>
+      <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+    </div>
+
+    <!-- Related Articles -->
+    {related.length > 0 && (
+      <section class="related-section">
+        <h2 class="related-title">Related Articles</h2>
+        <div class="related-grid">
+          {related.map(rel => (
+            <a href={`/blog/${rel.data.pillar}/${rel.slug}`} class="related-card">
+              <span class="related-pillar">{rel.data.pillar.replace(/-/g, ' ')}</span>
+              <h3>{rel.data.title}</h3>
+              <p>{rel.data.description}</p>
+              <span class="read-more">Read article →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- EverRank CTA Footer -->
+    <div class="post-cta">
+      <h3>Outrank Your Competitors with ContentIQ</h3>
+      <p>Stop guessing what Google wants. Use EverRank's AI to reverse-engineer the SERPs and build compounding authority.</p>
+      <a href="https://everrank.app/register" class="cta-btn">Start Free Trial</a>
+    </div>
+  </article>
+</Layout>
+
+<script>
+  // Reading Progress Bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = scrolled + '%';
+  });
+
+  // Newsletter form submit
+  const form = document.getElementById('newsletter-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('newsletter-thanks') as HTMLElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (form) form.style.display = 'none';
+    if (thanks) thanks.style.display = 'flex';
+  });
+</script>
+
+<style>
+  .blog-post { max-width: 800px; margin: 0 auto; padding: 140px 24px 80px; }
+
+  /* Progress Bar */
+  .progress-bar {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--gradient);
+    z-index: 999;
+    transition: width 0.1s ease;
+  }
+
+  /* Header */
+  .post-header { text-align: center; margin-bottom: 64px; }
+  .tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .pillar-tag { color: var(--primary); text-decoration: none; }
+  .tag { color: var(--text-muted); }
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .meta { color: var(--text-muted); font-size: 1rem; }
+  .meta .author { font-weight: 600; color: var(--text); margin-right: 16px; border-right: 1px solid var(--border); padding-right: 16px; }
+
+  /* Prose */
+  .prose { font-size: 1.15rem; line-height: 1.8; color: var(--text); margin-bottom: 64px; }
+  .prose :global(h2) { font-size: 2rem; margin: 64px 0 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .prose :global(h3) { font-size: 1.5rem; margin: 40px 0 16px; font-weight: 700; }
+  .prose :global(p) { margin-bottom: 28px; }
+  .prose :global(ul) { margin-bottom: 28px; padding-left: 24px; }
+  .prose :global(li) { margin-bottom: 12px; }
+  .prose :global(li::marker) { color: var(--primary); }
+  .prose :global(a) { color: var(--primary); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .prose :global(a:hover) { border-bottom-color: var(--primary); }
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--primary);
+    padding: 24px 32px;
+    font-style: italic;
+    background: var(--bg-alt);
+    border-radius: 0 16px 16px 0;
+    color: var(--text);
+    margin: 40px 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+  .prose :global(img) { max-width: 100%; height: auto; border-radius: 16px; margin: 40px 0; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+  .prose :global(pre) { background: #1a1b26; padding: 24px; border-radius: 12px; overflow-x: auto; margin: 32px 0; font-size: 0.95rem; }
+  .prose :global(code) { font-family: 'Fira Code', monospace; background: var(--bg-alt); padding: 4px 6px; border-radius: 6px; font-size: 0.9em; }
+  .prose :global(pre code) { background: transparent; padding: 0; }
+
+  /* Newsletter */
+  .newsletter-box {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.25);
+    border-radius: 20px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .newsletter-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .newsletter-box h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+  .newsletter-box > p { color: var(--text-muted); font-size: 1rem; margin-bottom: 28px; }
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .email-input {
+    flex: 1;
+    min-width: 220px;
+    padding: 14px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-input:focus { border-color: var(--primary); }
+  .newsletter-btn {
+    padding: 14px 24px;
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .newsletter-thanks {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .thanks-icon { font-size: 1.5rem; }
+  .newsletter-note { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* Related Articles */
+  .related-section { margin-bottom: 64px; }
+  .related-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 28px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .related-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .related-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px -8px rgba(102, 126, 234, 0.2);
+  }
+  .related-pillar {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--primary);
+  }
+  .related-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0;
+  }
+  .related-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .read-more {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-top: 4px;
+  }
+
+  /* EverRank CTA */
+  .post-cta {
+    background: var(--bg-alt);
+    border: 1px solid var(--primary);
+    padding: 48px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 20px 40px -10px rgba(102, 126, 234, 0.15);
+  }
+  .post-cta h3 { font-size: 1.8rem; margin-bottom: 16px; font-weight: 800; }
+  .post-cta p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; max-width: 600px; margin-inline: auto; }
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .cta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+</style>
